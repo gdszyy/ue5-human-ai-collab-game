@@ -17,6 +17,15 @@ public class EchoAlchemist : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+		// 添加自动化测试依赖
+		if (Target.Configuration != UnrealTargetConfiguration.Shipping)
+		{
+			PrivateDependencyModuleNames.AddRange(new string[] {
+				"UnrealEd",
+				"AutomationController"
+			});
+		}
+
 		// 如果需要使用 Remote Control API
 		// PrivateDependencyModuleNames.AddRange(new string[] { "RemoteControl" });
 	}
