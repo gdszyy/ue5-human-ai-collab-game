@@ -6,6 +6,26 @@
 #include "CollisionShape.generated.h"
 
 /**
+ * 碰撞体形状类型
+ * 
+ * 定义碰撞检测支持的形状类型。
+ * 
+ * 蓝图使用示例：
+ * - 在创建碰撞体时选择形状类型
+ * - Circle用于魔力露珠、魔药等圆形物体
+ * - Rectangle用于敌人、障碍物等矩形物体
+ */
+UENUM(BlueprintType)
+enum class ECollisionShapeType : uint8
+{
+	/** 圆形碰撞体 */
+	Circle UMETA(DisplayName = "Circle"),
+	
+	/** 矩形碰撞体 */
+	Rectangle UMETA(DisplayName = "Rectangle")
+};
+
+/**
  * 碰撞体基础信息
  * 
  * 用于碰撞检测的基础数据结构，包含位置、形状类型等信息。
