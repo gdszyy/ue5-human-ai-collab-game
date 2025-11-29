@@ -90,7 +90,7 @@ struct FPhysicsSceneConfig
 	
 	/** 魔力露珠/魔药的碰撞体形状 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
-	TEnumAsByte<ECollisionShapeType> MarbleShape = CollisionShape_Circle;
+	EEchoCollisionShapeType MarbleShape = EEchoCollisionShapeType::Circle;
 
 	// ========== 生命周期配置 ==========
 	

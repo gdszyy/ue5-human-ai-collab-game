@@ -17,7 +17,7 @@ FPhysicsSceneConfig USceneConfigFactory::CreateWorkbenchConfig()
 	Config.BoundaryBehavior = Boundary_Delete;
 	
 	// 碰撞配置
-	Config.MarbleShape = CollisionShape_Circle;
+	Config.MarbleShape = EEchoCollisionShapeType::Circle;
 	
 	// 不使用药效强度系统
 	Config.bUsePotencySystem = false;
@@ -43,7 +43,7 @@ FPhysicsSceneConfig USceneConfigFactory::CreateCombatConfig(FVector BoundaryMin,
 	Config.BoundaryBehavior = Boundary_Bounce;
 	
 	// 碰撞配置
-	Config.MarbleShape = CollisionShape_Circle;
+	Config.MarbleShape = EEchoCollisionShapeType::Circle;
 	
 	// 使用药效强度系统
 	Config.bUsePotencySystem = true;

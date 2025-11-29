@@ -52,7 +52,7 @@ bool FCollisionManagerRegisterTest::RunTest(const FString& Parameters)
 	FCollisionBody CircleBody;
 	CircleBody.ID = FGuid::NewGuid();
 	CircleBody.Position = FVector(0, 0, 100);
-	CircleBody.ShapeType = CollisionShape_Circle;
+	CircleBody.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleBody.Radius = 10.0f;
 
 	// 注册碰撞体
@@ -91,13 +91,13 @@ bool FCollisionManagerCircleCircleTest::RunTest(const FString& Parameters)
 	FCollisionBody CircleA;
 	CircleA.ID = FGuid::NewGuid();
 	CircleA.Position = FVector(0, 0, 100);
-	CircleA.ShapeType = CollisionShape_Circle;
+	CircleA.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleA.Radius = 10.0f;
 
 	FCollisionBody CircleB;
 	CircleB.ID = FGuid::NewGuid();
 	CircleB.Position = FVector(15, 0, 100);  // 距离15cm，两个半径之和为20cm，应该碰撞
-	CircleB.ShapeType = CollisionShape_Circle;
+	CircleB.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleB.Radius = 10.0f;
 
 	// 注册碰撞体
@@ -142,13 +142,13 @@ bool FCollisionManagerCircleCircleNoCollisionTest::RunTest(const FString& Parame
 	FCollisionBody CircleA;
 	CircleA.ID = FGuid::NewGuid();
 	CircleA.Position = FVector(0, 0, 100);
-	CircleA.ShapeType = CollisionShape_Circle;
+	CircleA.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleA.Radius = 10.0f;
 
 	FCollisionBody CircleB;
 	CircleB.ID = FGuid::NewGuid();
 	CircleB.Position = FVector(100, 0, 100);  // 距离100cm，两个半径之和为20cm，不应该碰撞
-	CircleB.ShapeType = CollisionShape_Circle;
+	CircleB.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleB.Radius = 10.0f;
 
 	// 注册碰撞体
@@ -186,14 +186,14 @@ bool FCollisionManagerCircleRectangleTest::RunTest(const FString& Parameters)
 	FCollisionBody Circle;
 	Circle.ID = FGuid::NewGuid();
 	Circle.Position = FVector(0, 0, 100);
-	Circle.ShapeType = CollisionShape_Circle;
+	Circle.ShapeType = EEchoCollisionShapeType::Circle;
 	Circle.Radius = 10.0f;
 
 	// 创建矩形碰撞体
 	FCollisionBody Rectangle;
 	Rectangle.ID = FGuid::NewGuid();
 	Rectangle.Position = FVector(20, 0, 100);  // 距离20cm
-	Rectangle.ShapeType = CollisionShape_Rectangle;
+	Rectangle.ShapeType = EEchoCollisionShapeType::Rectangle;
 	Rectangle.Size = FVector2D(50.0f, 30.0f);  // 宽50cm，高30cm
 	Rectangle.Rotation = 0.0f;
 
@@ -234,7 +234,7 @@ bool FCollisionManagerSpatialGridTest::RunTest(const FString& Parameters)
 		FCollisionBody Body;
 		Body.ID = FGuid::NewGuid();
 		Body.Position = FVector(i * 50.0f, 0, 100);
-		Body.ShapeType = CollisionShape_Circle;
+		Body.ShapeType = EEchoCollisionShapeType::Circle;
 		Body.Radius = 10.0f;
 		CollisionManager->RegisterBody(Body);
 	}
@@ -287,7 +287,7 @@ bool FCollisionManagerPerformanceTest::RunTest(const FString& Parameters)
 			FMath::FRandRange(-500, 500),
 			FMath::FRandRange(0, 500)
 		);
-		Body.ShapeType = CollisionShape_Circle;
+		Body.ShapeType = EEchoCollisionShapeType::Circle;
 		Body.Radius = 10.0f;
 		CollisionManager->RegisterBody(Body);
 	}
@@ -302,7 +302,7 @@ bool FCollisionManagerPerformanceTest::RunTest(const FString& Parameters)
 			FMath::FRandRange(-500, 500),
 			FMath::FRandRange(0, 500)
 		);
-		Body.ShapeType = CollisionShape_Rectangle;
+		Body.ShapeType = EEchoCollisionShapeType::Rectangle;
 		Body.Size = FVector2D(50.0f, 30.0f);
 		Body.Rotation = 0.0f;
 		CollisionManager->RegisterBody(Body);
@@ -355,13 +355,13 @@ bool FCollisionManagerEventTest::RunTest(const FString& Parameters)
 	FCollisionBody CircleA;
 	CircleA.ID = FGuid::NewGuid();
 	CircleA.Position = FVector(0, 0, 100);
-	CircleA.ShapeType = CollisionShape_Circle;
+	CircleA.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleA.Radius = 10.0f;
 
 	FCollisionBody CircleB;
 	CircleB.ID = FGuid::NewGuid();
 	CircleB.Position = FVector(15, 0, 100);
-	CircleB.ShapeType = CollisionShape_Circle;
+	CircleB.ShapeType = EEchoCollisionShapeType::Circle;
 	CircleB.Radius = 10.0f;
 
 	// 注册碰撞体
