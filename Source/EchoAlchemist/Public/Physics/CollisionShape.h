@@ -16,13 +16,13 @@
  * - Rectangle用于敌人、障碍物等矩形物体
  */
 UENUM(BlueprintType)
-enum class ECollisionShapeType : uint8
+enum ECollisionShapeType
 {
 	/** 圆形碰撞体 */
-	Circle UMETA(DisplayName = "Circle"),
+	CollisionShape_Circle UMETA(DisplayName = "Circle"),
 	
 	/** 矩形碰撞体 */
-	Rectangle UMETA(DisplayName = "Rectangle")
+	CollisionShape_Rectangle UMETA(DisplayName = "Rectangle")
 };
 
 /**
@@ -49,7 +49,7 @@ struct FCollisionBody
 
 	/** 形状类型（圆形或矩形） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
-	ECollisionShapeType ShapeType = ECollisionShapeType::Circle;
+	TEnumAsByte<ECollisionShapeType> ShapeType = CollisionShape_Circle;
 
 	// ========== 圆形参数 ==========
 	
@@ -80,7 +80,7 @@ struct FCollisionBody
 	 */
 	FBox GetBoundingBox() const
 	{
-		if (ShapeType == ECollisionShapeType::Circle)
+		if (ShapeType == CollisionShape_Circle)
 		{
 			FVector Extent(Radius, Radius, Radius);
 			return FBox(Position - Extent, Position + Extent);

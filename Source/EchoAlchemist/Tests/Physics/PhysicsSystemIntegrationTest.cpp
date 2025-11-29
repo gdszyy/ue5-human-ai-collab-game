@@ -82,7 +82,7 @@ bool FPhysicsSystemIntegrationCombatTest::RunTest(const FString& Parameters)
 		FCollisionBody Body;
 		Body.ID = MarbleID;
 		Body.Position = State.Position;
-		Body.ShapeType = ECollisionShapeType::Circle;
+		Body.ShapeType = CollisionShape_Circle;
 		Body.Radius = State.Radius;
 		
 		CollisionManager->RegisterBody(Body);
@@ -98,7 +98,7 @@ bool FPhysicsSystemIntegrationCombatTest::RunTest(const FString& Parameters)
 			0,
 			(i / 5) * 100.0f + 500.0f  // 在魔力露珠上方
 		);
-		Enemy.ShapeType = ECollisionShapeType::Rectangle;
+		Enemy.ShapeType = CollisionShape_Rectangle;
 		Enemy.Size = FVector2D(80.0f, 50.0f);
 		Enemy.Rotation = 0.0f;
 		
@@ -258,7 +258,7 @@ bool FPhysicsSystemIntegrationWorkbenchTest::RunTest(const FString& Parameters)
 		FCollisionBody Body;
 		Body.ID = MarbleID;
 		Body.Position = State.Position;
-		Body.ShapeType = ECollisionShapeType::Circle;
+		Body.ShapeType = CollisionShape_Circle;
 		Body.Radius = State.Radius;
 		
 		CollisionManager->RegisterBody(Body);
@@ -270,7 +270,7 @@ bool FPhysicsSystemIntegrationWorkbenchTest::RunTest(const FString& Parameters)
 		FCollisionBody InjectionPoint;
 		InjectionPoint.ID = FGuid::NewGuid();
 		InjectionPoint.Position = FVector(i * 100.0f - 200.0f, 0, 200);
-		InjectionPoint.ShapeType = ECollisionShapeType::Circle;
+		InjectionPoint.ShapeType = CollisionShape_Circle;
 		InjectionPoint.Radius = 20.0f;
 		
 		CollisionManager->RegisterBody(InjectionPoint);
@@ -489,7 +489,7 @@ bool FPhysicsSystemIntegrationStressTest::RunTest(const FString& Parameters)
 		FCollisionBody Body;
 		Body.ID = MarbleID;
 		Body.Position = State.Position;
-		Body.ShapeType = ECollisionShapeType::Circle;
+		Body.ShapeType = CollisionShape_Circle;
 		Body.Radius = State.Radius;
 		
 		CollisionManager->RegisterBody(Body);
@@ -505,7 +505,7 @@ bool FPhysicsSystemIntegrationStressTest::RunTest(const FString& Parameters)
 			FMath::FRandRange(-1000, 1000),
 			FMath::FRandRange(100, 1000)
 		);
-		Enemy.ShapeType = ECollisionShapeType::Rectangle;
+		Enemy.ShapeType = CollisionShape_Rectangle;
 		Enemy.Size = FVector2D(80.0f, 50.0f);
 		Enemy.Rotation = 0.0f;
 		

@@ -236,15 +236,15 @@ int32 UCollisionManager::DetectCollisionsForBody(const FGuid& BodyID, TArray<FCo
 bool UCollisionManager::CheckCollision(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FCollisionEvent& OutEvent)
 {
 	// 根据形状类型分发到具体的碰撞检测函数
-	if (BodyA.ShapeType == ECollisionShapeType::Circle && BodyB.ShapeType == ECollisionShapeType::Circle)
+	if (BodyA.ShapeType == CollisionShape_Circle && BodyB.ShapeType == CollisionShape_Circle)
 	{
 		return CheckCircleCircle(BodyA, BodyB, OutEvent);
 	}
-	else if (BodyA.ShapeType == ECollisionShapeType::Circle && BodyB.ShapeType == ECollisionShapeType::Rectangle)
+	else if (BodyA.ShapeType == CollisionShape_Circle && BodyB.ShapeType == CollisionShape_Rectangle)
 	{
 		return CheckCircleRectangle(BodyA, BodyB, OutEvent);
 	}
-	else if (BodyA.ShapeType == ECollisionShapeType::Rectangle && BodyB.ShapeType == ECollisionShapeType::Circle)
+	else if (BodyA.ShapeType == CollisionShape_Rectangle && BodyB.ShapeType == CollisionShape_Circle)
 	{
 		return CheckCircleRectangle(BodyB, BodyA, OutEvent);
 	}

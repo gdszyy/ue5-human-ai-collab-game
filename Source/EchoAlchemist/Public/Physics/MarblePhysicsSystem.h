@@ -196,7 +196,7 @@ public:
 	 * @return 场景类型（炼金工作台或战斗场景）
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|System")
-	EPhysicsSceneType GetSceneType() const { return SceneConfig.SceneType; }
+	TEnumAsByte<EPhysicsSceneType> GetSceneType() const { return SceneConfig.SceneType; }
 
 	/**
 	 * 检查系统是否已初始化

@@ -45,7 +45,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCollisionDelegate, const FCollisi
  *    ```
  *    FCollisionBody Body;
  *    Body.Position = GetActorLocation();
- *    Body.ShapeType = ECollisionShapeType::Circle;
+ *    Body.ShapeType = CollisionShape_Circle;
  *    Body.Radius = 10.0f;
  *    CollisionManager->RegisterBody(Body);
  *    ```

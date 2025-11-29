@@ -5,7 +5,7 @@
 FPhysicsSceneConfig USceneConfigFactory::CreateWorkbenchConfig()
 {
 	FPhysicsSceneConfig Config;
-	Config.SceneType = EPhysicsSceneType::Workbench;
+	Config.SceneType = PhysicsScene_Workbench;
 	
 	// 启用重力
 	Config.bEnableGravity = true;
@@ -14,10 +14,10 @@ FPhysicsSceneConfig USceneConfigFactory::CreateWorkbenchConfig()
 	
 	// 边界配置
 	Config.bHasBoundary = true;
-	Config.BoundaryBehavior = EBoundaryBehavior::Delete;
+	Config.BoundaryBehavior = Boundary_Delete;
 	
 	// 碰撞配置
-	Config.MarbleShape = ECollisionShapeType::Circle;
+	Config.MarbleShape = CollisionShape_Circle;
 	
 	// 不使用药效强度系统
 	Config.bUsePotencySystem = false;
@@ -32,7 +32,7 @@ FPhysicsSceneConfig USceneConfigFactory::CreateWorkbenchConfig()
 FPhysicsSceneConfig USceneConfigFactory::CreateCombatConfig(FVector BoundaryMin, FVector BoundaryMax)
 {
 	FPhysicsSceneConfig Config;
-	Config.SceneType = EPhysicsSceneType::Combat;
+	Config.SceneType = PhysicsScene_Combat;
 	
 	// 无重力
 	Config.bEnableGravity = false;
@@ -40,10 +40,10 @@ FPhysicsSceneConfig USceneConfigFactory::CreateCombatConfig(FVector BoundaryMin,
 	// 边界配置
 	Config.bHasBoundary = true;
 	Config.BoundaryBox = FBox(BoundaryMin, BoundaryMax);
-	Config.BoundaryBehavior = EBoundaryBehavior::Bounce;
+	Config.BoundaryBehavior = Boundary_Bounce;
 	
 	// 碰撞配置
-	Config.MarbleShape = ECollisionShapeType::Circle;
+	Config.MarbleShape = CollisionShape_Circle;
 	
 	// 使用药效强度系统
 	Config.bUsePotencySystem = true;

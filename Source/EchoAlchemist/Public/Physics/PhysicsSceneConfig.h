@@ -11,13 +11,13 @@
  * 用于区分炼金工作台和战斗场景的不同物理规则
  */
 UENUM(BlueprintType)
-enum class EPhysicsSceneType : uint8
+enum EPhysicsSceneType
 {
 	/** 炼金工作台场景 - 有重力，高精度物理 */
-	Workbench UMETA(DisplayName = "Workbench"),
+	PhysicsScene_Workbench UMETA(DisplayName = "Workbench"),
 	
 	/** 战斗场景 - 无重力，支持大量魔药 */
-	Combat UMETA(DisplayName = "Combat")
+	PhysicsScene_Combat UMETA(DisplayName = "Combat")
 };
 
 /**
@@ -25,16 +25,16 @@ enum class EPhysicsSceneType : uint8
  * 定义魔力露珠/魔药碰到边界时的行为
  */
 UENUM(BlueprintType)
-enum class EBoundaryBehavior : uint8
+enum EBoundaryBehavior
 {
 	/** 离开边界时删除 */
-	Delete UMETA(DisplayName = "Delete"),
+	Boundary_Delete UMETA(DisplayName = "Delete"),
 	
 	/** 碰到边界时反弹 */
-	Bounce UMETA(DisplayName = "Bounce"),
+	Boundary_Bounce UMETA(DisplayName = "Bounce"),
 	
 	/** 无边界限制 */
-	None UMETA(DisplayName = "None")
+	Boundary_None UMETA(DisplayName = "None")
 };
 
 /**
@@ -56,7 +56,7 @@ struct FPhysicsSceneConfig
 
 	/** 场景类型 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scene")
-	EPhysicsSceneType SceneType = EPhysicsSceneType::Combat;
+	TEnumAsByte<EPhysicsSceneType> SceneType = PhysicsScene_Combat;
 
 	// ========== 重力配置 ==========
 	
@@ -84,13 +84,13 @@ struct FPhysicsSceneConfig
 
 	/** 边界行为（删除、反弹或无） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")
-	EBoundaryBehavior BoundaryBehavior = EBoundaryBehavior::None;
+	TEnumAsByte<EBoundaryBehavior> BoundaryBehavior = Boundary_None;
 
 	// ========== 碰撞配置 ==========
 	
 	/** 魔力露珠/魔药的碰撞体形状 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
-	ECollisionShapeType MarbleShape = ECollisionShapeType::Circle;
+	TEnumAsByte<ECollisionShapeType> MarbleShape = CollisionShape_Circle;
 
 	// ========== 生命周期配置 ==========
 	
