@@ -24,3 +24,13 @@ bool FWFCAssemblerTest::RunTest(const FString& Parameters)
 }
 
 #endif //WITH_DEV_AUTOMATION_TESTS
+
+    // Test 2: Assembly with multiple modules
+    FWFCModule Torso;
+    Torso.ModuleId = "Torso";
+    Modules.Add(Torso);
+
+    FWFCAssembly Assembly2 = UWFCAssembler::AssembleWithWFC(Modules, 2, 2, 456);
+    TestEqual("Assembly2 should have correct width", Assembly2.Width, 2);
+    TestEqual("Assembly2 should have correct height", Assembly2.Height, 2);
+    TestEqual("Assembly2 grid should have 4 elements", Assembly2.PlacedModules.Num(), 4);

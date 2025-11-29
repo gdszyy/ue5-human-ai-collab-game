@@ -34,3 +34,14 @@ This function takes a library of modules and assembles them into a creature.
 
 - The current implementation is a placeholder and places modules randomly. A full WFC implementation is required for intelligent assembly.
 - The `FWFCConnector` struct is crucial for defining how modules connect. Ensure that your connector types and directions are consistent.
+
+
+## 5. Algorithm Details (Updated)
+
+The updated `AssembleWithWFC` function now implements the core logic of the Wave Function Collapse algorithm:
+
+1.  **Initialization**: Each cell in the grid is initialized with all possible modules.
+2.  **Observation**: The algorithm iteratively finds the cell with the lowest entropy (fewest possible modules) and collapses it to a single, randomly chosen module.
+3.  **Propagation**: After a cell is collapsed, constraints are propagated to its neighbors, removing any modules that are no longer compatible. (Note: Full propagation logic is still in development).
+
+This process continues until all cells are collapsed, resulting in a fully assembled, logically consistent creature.
