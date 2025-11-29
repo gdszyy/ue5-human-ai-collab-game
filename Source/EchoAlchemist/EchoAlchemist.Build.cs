@@ -22,7 +22,14 @@ public class EchoAlchemist : ModuleRules
 		if (Target.Configuration != UnrealTargetConfiguration.Shipping)
 		{
 			PrivateDependencyModuleNames.AddRange(new string[] {
-				"UnrealEd",
+				"UnrealEd"
+			});
+		}
+
+		// 添加自动化测试框架支持（包括 WITH_AUTOMATION_TESTS 宏）
+		if (Target.bBuildDeveloperTools || (Target.Configuration != UnrealTargetConfiguration.Shipping && Target.Configuration != UnrealTargetConfiguration.Test))
+		{
+			PrivateDependencyModuleNames.AddRange(new string[] {
 				"AutomationController"
 			});
 		}

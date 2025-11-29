@@ -2,6 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
+
+#if WITH_DEV_AUTOMATION_TESTS
+
 #include "Physics/MarblePhysicsSystem.h"
 #include "Physics/CollisionManager.h"
 #include "Physics/MarbleActorPool.h"
@@ -554,3 +557,6 @@ bool FPhysicsSystemIntegrationStressTest::RunTest(const FString& Parameters)
 	
 	return true;
 }
+
+
+#endif // WITH_DEV_AUTOMATION_TESTS

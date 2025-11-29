@@ -2,6 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
+
+#if WITH_DEV_AUTOMATION_TESTS
+
 #include "Physics/MarblePhysicsSystem.h"
 #include "Physics/PhysicsSceneConfig.h"
 
@@ -255,3 +258,6 @@ bool FMarblePhysicsSystemMultipleTest::RunTest(const FString& Parameters)
 
 	return true;
 }
+
+
+#endif // WITH_DEV_AUTOMATION_TESTS

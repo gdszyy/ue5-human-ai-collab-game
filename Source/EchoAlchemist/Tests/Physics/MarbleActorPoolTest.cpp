@@ -2,6 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
+
+#if WITH_DEV_AUTOMATION_TESTS
+
 #include "Physics/MarbleActorPool.h"
 #include "Physics/MarbleActor.h"
 #include "Engine/World.h"
@@ -121,3 +124,6 @@ bool FMarbleActorPoolPerformanceTest::RunTest(const FString& Parameters)
 
 	return true;
 }
+
+
+#endif // WITH_DEV_AUTOMATION_TESTS
