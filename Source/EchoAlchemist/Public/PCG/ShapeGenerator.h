@@ -64,3 +64,28 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PCG | Shape", meta = (DisplayName = "Generate Shape with Simplex Noise", Keywords = "shape generator simplex noise perlin"))
     static FShapeData GenerateShapeWithSimplexNoise(int32 Width, int32 Height, int32 Seed, float Scale = 20.0f, float Threshold = 0.5f);
 };
+
+    /**
+     * Generates a 2D shape using a Voronoi diagram.
+     *
+     * @param Width The width of the shape grid.
+     * @param Height The height of the shape grid.
+     * @param Seed A random seed for point placement.
+     * @param NumPoints The number of points to use for the Voronoi diagram.
+     * @return A new FShapeData struct containing the generated shape.
+     */
+    UFUNCTION(BlueprintCallable, Category = "PCG | Shape", meta = (DisplayName = "Generate Shape with Voronoi", Keywords = "shape generator voronoi crystal"))
+    static FShapeData GenerateShapeWithVoronoi(int32 Width, int32 Height, int32 Seed, int32 NumPoints = 10);
+
+    /**
+     * Generates a 2D shape using a crystal growth simulation.
+     *
+     * @param Width The width of the shape grid.
+     * @param Height The height of the shape grid.
+     * @param Seed A random seed for the growth process.
+     * @param Iterations The number of growth iterations.
+     * @param GrowthChance The probability of a new crystal forming.
+     * @return A new FShapeData struct containing the generated shape.
+     */
+    UFUNCTION(BlueprintCallable, Category = "PCG | Shape", meta = (DisplayName = "Generate Shape with Crystal Growth", Keywords = "shape generator crystal growth"))
+    static FShapeData GenerateShapeWithCrystalGrowth(int32 Width, int32 Height, int32 Seed, int32 Iterations = 5, float GrowthChance = 0.3f);

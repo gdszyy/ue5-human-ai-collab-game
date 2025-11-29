@@ -51,3 +51,40 @@
 
 - `ShapeData`中的`Grid`是一个一维数组，需要使用`y * Width + x`来访问二维坐标。
 - 细胞自动机和Simplex噪声的参数可以极大地影响最终形状，建议多加尝试不同的参数组合。
+
+### 2.3 使用Voronoi图生成形状
+
+此函数可以生成几何化、棱角分明的形状，适合用于晶石或矿物类怪兽。
+
+**节点：** `Generate Shape with Voronoi`
+
+**使用方法：**
+1. 调用`Generate Shape with Voronoi`函数，传入网格尺寸、随机种子和点数。
+2. 函数将返回一个`ShapeData`结构体。
+
+### 2.4 使用晶体生长算法生成形状
+
+此函数可以模拟晶体从种子点向外生长的过程，生成对称、放射状的形状。
+
+**节点：** `Generate Shape with Crystal Growth`
+
+**使用方法：**
+1. 调用`Generate Shape with Crystal Growth`函数，传入网格尺寸、随机种子、迭代次数和生长概率。
+2. 函数将返回一个`ShapeData`结构体。
+
+## 3. 参数说明 (续)
+
+### GenerateShapeWithVoronoi
+| 参数 | 类型 | 描述 |
+| :--- | :--- | :--- |
+| **Width/Height** | `int32` | 形状网格的尺寸。 |
+| **Seed** | `int32` | 随机种子。 |
+| **NumPoints** | `int32` | Voronoi图的点数。 |
+
+### GenerateShapeWithCrystalGrowth
+| 参数 | 类型 | 描述 |
+| :--- | :--- | :--- |
+| **Width/Height** | `int32` | 形状网格的尺寸。 |
+| **Seed** | `int32` | 随机种子。 |
+| **Iterations** | `int32` | 生长迭代次数。 |
+| **GrowthChance** | `float` | 新晶体形成的概率。 |

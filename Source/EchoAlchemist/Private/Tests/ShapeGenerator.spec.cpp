@@ -25,3 +25,15 @@ bool FShapeGeneratorTest::RunTest(const FString& Parameters)
 }
 
 #endif //WITH_DEV_AUTOMATION_TESTS
+
+    // Test 3: Voronoi
+    FShapeData VoronoiShape = UShapeGenerator::GenerateShapeWithVoronoi(15, 15, 789);
+    TestEqual("Voronoi Shape should have correct width", VoronoiShape.Width, 15);
+    TestEqual("Voronoi Shape should have correct height", VoronoiShape.Height, 15);
+    TestEqual("Voronoi Shape grid should have 225 elements", VoronoiShape.Grid.Num(), 225);
+
+    // Test 4: Crystal Growth
+    FShapeData CrystalShape = UShapeGenerator::GenerateShapeWithCrystalGrowth(25, 25, 101);
+    TestEqual("Crystal Shape should have correct width", CrystalShape.Width, 25);
+    TestEqual("Crystal Shape should have correct height", CrystalShape.Height, 25);
+    TestEqual("Crystal Shape grid should have 625 elements", CrystalShape.Grid.Num(), 625);
