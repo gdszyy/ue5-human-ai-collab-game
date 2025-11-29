@@ -34,10 +34,4 @@ bool FPaletteGeneratorTest::RunTest(const FString& Parameters)
     return true;
 }
 
-#endif // ... more tests can be added here
-#endif // ... more tests can be added here
-
-#endif // ... more tests can be added here
-
-
-#endif // ... more tests can be added here\n#endif //WITH_DEV_AUTOMATION_TESTS
+#endif // WITH_DEV_AUTOMATION_TESTS

@@ -1,5 +1,4 @@
 #include "PCG/ShapeGenerator.h"
-#include "SimplexNoise.h"
 
 FShapeData UShapeGenerator::GenerateShapeWithCellularAutomata(int32 Width, int32 Height, int32 Seed, int32 Iterations, int32 BirthThreshold, int32 SurvivalThreshold)
 {
@@ -65,13 +64,14 @@ FShapeData UShapeGenerator::GenerateShapeWithSimplexNoise(int32 Width, int32 Hei
     Shape.Height = Height;
     Shape.Grid.Init(false, Width * Height);
 
-    USimplexNoise::setSeed(Seed);
+    FRandomStream RandStream(Seed);
 
     for (int32 y = 0; y < Height; ++y)
     {
         for (int32 x = 0; x < Width; ++x)
         {
-            float NoiseValue = USimplexNoise::noise2D(x / Scale, y / Scale);
+            // Use UE4's built-in Perlin noise instead of SimplexNoise
+            float NoiseValue = FMath::PerlinNoise2D(FVector2D(x / Scale, y / Scale));
             Shape.Grid[y * Width + x] = NoiseValue > Threshold;
         }
     }
