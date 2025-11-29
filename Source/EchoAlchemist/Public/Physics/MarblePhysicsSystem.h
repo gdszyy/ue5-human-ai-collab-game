@@ -6,7 +6,11 @@
 #include "UObject/NoExportTypes.h"
 #include "Physics/PhysicsSceneConfig.h"
 #include "Physics/MarbleState.h"
+#include "Physics/MarbleActorPool.h"
 #include "MarblePhysicsSystem.generated.h"
+
+class UNiagaraComponent;
+class UNiagaraSystem;
 
 /**
  * 魔力露珠物理系统
@@ -202,6 +206,32 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Physics|System")
 	bool IsInitialized() const { return bIsInitialized; }
 
+	// ========== 混合物理系统 ==========
+	
+	/**
+	 * 初始化混合物理系统
+	 * 
+	 * @param World 世界对象（用于生成Actor）
+	 * @param PreAllocateActorCount 预创建Actor数量
+	 * 
+	 * 注意事项：
+	 * - 必须在InitializeScene之后调用
+	 * - 如果不调用，所有魔力露珠都使用逻辑模拟
+	 * - 调用后，第0-1代魔力露珠使用Actor，第2代及以上使用粒子
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Physics|System")
+	void InitializeHybridPhysics(UWorld* World, int32 PreAllocateActorCount = 20);
+
+	/**
+	 * 获取Actor对象池统计信息
+	 * 
+	 * @param OutTotalCount 总Actor数量
+	 * @param OutAvailableCount 可用Actor数量
+	 * @param OutInUseCount 正在使用的Actor数量
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Physics|System|Debug")
+	void GetActorPoolStatistics(int32& OutTotalCount, int32& OutAvailableCount, int32& OutInUseCount) const;
+
 private:
 	// ========== 内部状态 ==========
 	
@@ -213,6 +243,17 @@ private:
 
 	/** 活跃的魔力露珠映射表（ID -> State） */
 	TMap<FGuid, FMarbleState> ActiveMarbles;
+
+	/** Actor对象池 */
+	UPROPERTY()
+	UMarbleActorPool* ActorPool;
+
+	/** Actor魔力露珠映射表（ID -> Actor） */
+	TMap<FGuid, AMarbleActor*> MarbleActors;
+
+	/** Niagara粒子系统组件 */
+	UPROPERTY()
+	UNiagaraComponent* ParticleSystem;
 
 	/** 当前游戏时间（单位：秒） */
 	float CurrentGameTime = 0.0f;

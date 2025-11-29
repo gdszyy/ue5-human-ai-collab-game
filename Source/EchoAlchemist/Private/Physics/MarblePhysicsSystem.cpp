@@ -280,3 +280,42 @@ bool UMarblePhysicsSystem::ShouldUseParticle(int32 Generation) const
 	// 第0-1代使用Actor，第2代及以上使用粒子
 	return Generation >= 2;
 }
+
+void UMarblePhysicsSystem::InitializeHybridPhysics(UWorld* World, int32 PreAllocateActorCount)
+{
+	if (!bIsInitialized)
+	{
+		UE_LOG(LogTemp, Error, TEXT("[MarblePhysicsSystem] Cannot initialize hybrid physics: Scene not initialized"));
+		return;
+	}
+
+	if (!World)
+	{
+		UE_LOG(LogTemp, Error, TEXT("[MarblePhysicsSystem] Cannot initialize hybrid physics: World is null"));
+		return;
+	}
+
+	// 创建Actor对象池
+	ActorPool = NewObject<UMarbleActorPool>(this);
+	ActorPool->Initialize(World, PreAllocateActorCount);
+
+	// TODO: 创建Niagara粒子系统组件（需要在蓝图中配置Niagara资源）
+	// ParticleSystem = NewObject<UNiagaraComponent>(this);
+
+	UE_LOG(LogTemp, Log, TEXT("[MarblePhysicsSystem] Hybrid physics initialized: PreAllocated=%d"), 
+		PreAllocateActorCount);
+}
+
+void UMarblePhysicsSystem::GetActorPoolStatistics(int32& OutTotalCount, int32& OutAvailableCount, int32& OutInUseCount) const
+{
+	if (ActorPool)
+	{
+		ActorPool->GetStatistics(OutTotalCount, OutAvailableCount, OutInUseCount);
+	}
+	else
+	{
+		OutTotalCount = 0;
+		OutAvailableCount = 0;
+		OutInUseCount = 0;
+	}
+}
