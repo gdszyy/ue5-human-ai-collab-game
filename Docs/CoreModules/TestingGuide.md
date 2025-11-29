@@ -34,6 +34,13 @@
 - 分级降级策略测试
 - 对象池性能测试
 
+### 4. PhysicsSystemIntegrationTest.cpp
+三系统集成测试：
+- 完整战斗场景模拟（10个魔力露珠 + 20个敌人）
+- 炼金工作台场景模拟（3个魔力露珠 + 5个注入点）
+- 分级降级策略集成测试
+- 性能压力测试（100个魔力露珠 + 50个敌人）
+
 ## 运行方式
 
 ### 在UE4编辑器中运行
@@ -42,6 +49,10 @@
 3. 打开 Window -> Test Automation
 4. 搜索 "EchoAlchemist.Physics"
 5. 运行所有测试
+
+**运行集成测试**：
+- 搜索 "EchoAlchemist.Physics.Integration" 只运行集成测试
+- 集成测试会输出详细的性能统计和碰撞信息到日志
 
 ### 命令行运行
 ```bash
@@ -60,6 +71,12 @@ UnrealEditor-Cmd.exe ProjectPath -ExecCmds="Automation RunTests EchoAlchemist.Ph
 - 所有场景初始化测试应通过
 - 所有碰撞检测测试应通过
 - 对象池管理测试应通过
+
+### 集成测试
+- 战斗场景应检测到碰撞
+- 炼金工作台场景应统计注入点击中次数
+- 分级降级策略应正确工作（第0-1代用Actor，第2代用粒子）
+- 性能压力测试应通过（物理更新<5ms，碰撞检测<5ms）
 
 ## 注意事项
 1. MarbleActorPoolTest需要World对象，必须在UE4编辑器中运行
