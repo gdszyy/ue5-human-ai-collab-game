@@ -1,0 +1,66 @@
+# Unreal Engine 4/5 Project Files
+
+# Binaries
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Logs
+*.log
+
+# Crash Reports
+*.crash
+
+# Visual Studio/Xcode Files
+.vs/
+.vscode/
+*.VC.db
+*.VC.opendb
+*.sdf
+*.suo
+*.xcodeproj/
+*.xcworkspace/
+
+# Generated Files
+*.pdb
+*.obj
+*.exe
+*.dll
+*.lib
+*.a
+*.so
+*.dylib
+
+# Other
+Content/Collections/
+Content/Developers/
+Content/Scratch/
+Content/ExternalActors/
+Content/ExternalObjects/
+
+# Packaging
+/Cooked/
+/StagedBuilds/
+
+# Mac OS X
+.DS_Store
+
+# Linux
+*.o
+*.a
+*.so
+
+# Windows
+*.ilk
+*.ipch
+*.aps
+*.ncb
+*.opensdf
+*.bak
+*.old
+*.tmp
+*.user
+*.pid
+*.lock
