@@ -273,14 +273,16 @@ bool FPhysicsSystemIntegrationWorkbenchTest::RunTest(const FString& Parameters)
 	TestEqual(TEXT("Should have 8 collision bodies"), CollisionManager->GetBodyCount(), 8);
 	
 	// ========================================
-	// 3. 模拟工作台循环（20帧）
+	// 3. 模拟工作台循环（35帧，确保魔力露珠到达注入点）
+	// 注意：魔力露珠从 Z=400 下落到 Z=200 需要约 0.467 秒
+	// 35 帧 × 0.016s = 0.56s，足够完成碰撞
 	// ========================================
 	
 	// 注意：动态多播委托不支持 AddLambda，我们在循环中直接统计碰撞
 	int32 TotalCollisions = 0;
 	TMap<FGuid, int32> InjectionPointHitCount;
 	
-	for (int32 Frame = 0; Frame < 20; ++Frame)
+	for (int32 Frame = 0; Frame < 35; ++Frame)
 	{
 		float DeltaTime = 0.016f;
 		
