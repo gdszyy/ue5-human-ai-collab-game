@@ -18,12 +18,27 @@ WorldMorphingSystem 可视化测试脚本
 import unreal
 import os
 def get_world_context():
-    """获取世界上下文对象（UE4兼容版本）"""
+    """获取世界上下文对象（UE4 PIE模式兼容）"""
     try:
-        actors = unreal.EditorLevelLibrary.get_all_level_actors()
-        if actors and len(actors) > 0:
-            return actors[0]
-        unreal.log_error("❌ 当前关卡中没有Actor")
+        try:
+            player_controller = unreal.GameplayStatics.get_player_controller(None, 0)
+            if player_controller:
+                return player_controller
+        except:
+            pass
+        try:
+            player_pawn = unreal.GameplayStatics.get_player_pawn(None, 0)
+            if player_pawn:
+                return player_pawn
+        except:
+            pass
+        try:
+            game_mode = unreal.GameplayStatics.get_game_mode(None)
+            if game_mode:
+                return game_mode
+        except:
+            pass
+        unreal.log_error("❌ 无法获取WorldContext")
         return None
     except Exception as e:
         unreal.log_error(f"❌ 错误: {str(e)}")

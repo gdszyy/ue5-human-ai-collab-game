@@ -29,22 +29,50 @@ def log_section(title):
     log_separator()
 
 def get_world_context():
-    """获取世界上下文对象（UE4兼容版本）
+    """获取世界上下文对象（UE4 PIE模式兼容）
     
-    在UE4中，我们不需要直接获取GameInstance，
-    只需要传递一个有效的WorldContextObject给蓝图函数。
-    在PIE模式下，任何Actor都可以作为WorldContextObject。
+    在PIE模式下，我们需要使用GameplayStatics来获取游戏世界中的Actor。
+    EditorLevelLibrary在PIE模式下不可用。
     """
     try:
-        # 获取当前关卡中的所有Actor
-        actors = unreal.EditorLevelLibrary.get_all_level_actors()
+        # 方法1: 尝试使用GameplayStatics获取PlayerController
+        try:
+            player_controller = unreal.GameplayStatics.get_player_controller(None, 0)
+            if player_controller:
+                unreal.log("✅ 使用PlayerController作为上下文")
+                return player_controller
+        except:
+            pass
         
-        if actors and len(actors) > 0:
-            # 返回第一个Actor作为WorldContextObject
-            unreal.log(f"✅ 找到 {len(actors)} 个Actor，使用第一个作为上下文")
-            return actors[0]
+        # 方法2: 尝试获取PlayerPawn
+        try:
+            player_pawn = unreal.GameplayStatics.get_player_pawn(None, 0)
+            if player_pawn:
+                unreal.log("✅ 使用PlayerPawn作为上下文")
+                return player_pawn
+        except:
+            pass
         
-        unreal.log_error("❌ 当前关卡中没有Actor，请确保在PIE模式下运行")
+        # 方法3: 尝试获取GameMode
+        try:
+            game_mode = unreal.GameplayStatics.get_game_mode(None)
+            if game_mode:
+                unreal.log("✅ 使用GameMode作为上下文")
+                return game_mode
+        except:
+            pass
+        
+        # 方法4: 尝试使用全局对象
+        try:
+            # 创建一个临时对象
+            temp_obj = unreal.new_object(unreal.Object, outer=None, name="TempWorldContext")
+            if temp_obj:
+                unreal.log("✅ 使用临时对象作为上下文")
+                return temp_obj
+        except:
+            pass
+        
+        unreal.log_error("❌ 无法获取WorldContext，请确保在PIE模式下运行")
         return None
         
     except Exception as e:
