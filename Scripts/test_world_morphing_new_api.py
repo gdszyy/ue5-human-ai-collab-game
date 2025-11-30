@@ -28,24 +28,27 @@ def log_section(title):
     unreal.log(f"  {title}")
     log_separator()
 
-def get_game_instance():
-    """获取PIE模式下的GameInstance"""
+def get_world_context():
+    """获取世界上下文对象（UE4兼容版本）
+    
+    在UE4中，我们不需要直接获取GameInstance，
+    只需要传递一个有效的WorldContextObject给蓝图函数。
+    在PIE模式下，任何Actor都可以作为WorldContextObject。
+    """
     try:
-        editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-        game_world = editor_subsystem.get_game_world()
+        # 获取当前关卡中的所有Actor
+        actors = unreal.EditorLevelLibrary.get_all_level_actors()
         
-        if not game_world:
-            unreal.log_error("❌ 无法获取游戏世界，请确保在PIE模式下运行")
-            return None
+        if actors and len(actors) > 0:
+            # 返回第一个Actor作为WorldContextObject
+            unreal.log(f"✅ 找到 {len(actors)} 个Actor，使用第一个作为上下文")
+            return actors[0]
         
-        game_instance = game_world.get_game_instance()
-        if not game_instance:
-            unreal.log_error("❌ 无法获取GameInstance")
-            return None
+        unreal.log_error("❌ 当前关卡中没有Actor，请确保在PIE模式下运行")
+        return None
         
-        return game_instance
     except Exception as e:
-        unreal.log_error(f"❌ 获取GameInstance时发生错误: {str(e)}")
+        unreal.log_error(f"❌ 获取世界上下文时发生错误: {str(e)}")
         return None
 
 def test_simulation_module():
@@ -53,8 +56,8 @@ def test_simulation_module():
     log_section("测试1: 模拟功能模块 (Simulation)")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 1. 使用Configuration模块创建参数
@@ -64,7 +67,7 @@ def test_simulation_module():
         
         # 2. 使用Simulation模块初始化
         unreal.log("\n1.2 初始化世界 (50x50)...")
-        success = unreal.WorldMorphingSimulation.initialize(game_instance, 50, 50, params)
+        success = unreal.WorldMorphingSimulation.initialize(world_context, 50, 50, params)
         if success:
             unreal.log("✅ 世界已初始化")
         else:
@@ -73,7 +76,7 @@ def test_simulation_module():
         
         # 3. 获取状态
         unreal.log("\n1.3 获取模拟状态...")
-        status = unreal.WorldMorphingSimulation.get_status(game_instance)
+        status = unreal.WorldMorphingSimulation.get_status(world_context)
         unreal.log(f"✅ 状态信息:")
         unreal.log(f"  - 已初始化: {status.b_initialized}")
         unreal.log(f"  - 网格尺寸: {status.width}x{status.height}")
@@ -83,9 +86,9 @@ def test_simulation_module():
         # 4. 执行更新
         unreal.log("\n1.4 执行10次模拟更新...")
         for i in range(10):
-            unreal.WorldMorphingSimulation.tick(game_instance, 0.016)
+            unreal.WorldMorphingSimulation.tick(world_context, 0.016)
         
-        status = unreal.WorldMorphingSimulation.get_status(game_instance)
+        status = unreal.WorldMorphingSimulation.get_status(world_context)
         unreal.log(f"✅ 更新完成，当前时间步: {status.time_step}")
         
         return True
@@ -99,13 +102,13 @@ def test_visualization_module():
     log_section("测试2: 视觉呈现模块 (Visualization)")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 1. 获取单个单元格状态
         unreal.log("2.1 获取单个单元格状态...")
-        cell = unreal.WorldMorphingVisualization.get_cell_state(game_instance, 25, 25)
+        cell = unreal.WorldMorphingVisualization.get_cell_state(world_context, 25, 25)
         unreal.log(f"✅ 位置 (25, 25) 的单元格:")
         unreal.log(f"  - 存在地形: {cell.b_exists}")
         unreal.log(f"  - 地幔能量: {cell.mantle_energy:.2f}")
@@ -115,13 +118,13 @@ def test_visualization_module():
         # 2. 获取区域状态
         unreal.log("\n2.2 获取区域状态 (10x10)...")
         region = unreal.WorldMorphingVisualization.get_region_states(
-            game_instance, 20, 20, 10, 10
+            world_context, 20, 20, 10, 10
         )
         unreal.log(f"✅ 获取了 {len(region)} 个单元格")
         
         # 3. 获取统计信息
         unreal.log("\n2.3 获取世界统计信息...")
-        stats = unreal.WorldMorphingVisualization.get_statistics(game_instance)
+        stats = unreal.WorldMorphingVisualization.get_statistics(world_context)
         unreal.log(f"✅ 统计信息:")
         unreal.log(f"  - 总单元格: {stats.total_cells}")
         unreal.log(f"  - 地形单元格: {stats.terrain_cells}")
@@ -135,7 +138,7 @@ def test_visualization_module():
         # 4. 获取热力图数据
         unreal.log("\n2.4 获取热力图数据...")
         heatmap = unreal.WorldMorphingVisualization.get_heatmap_data(
-            game_instance, unreal.HeatmapDataType.MANTLE_ENERGY
+            world_context, unreal.HeatmapDataType.MANTLE_ENERGY
         )
         unreal.log(f"✅ 获取了 {len(heatmap)} 个热力图数据点")
         
@@ -150,8 +153,8 @@ def test_configuration_module():
     log_section("测试3: 参数配置模块 (Configuration)")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 1. 创建默认参数
@@ -176,10 +179,10 @@ def test_configuration_module():
         
         # 3. 应用参数
         unreal.log("\n3.3 应用自定义参数...")
-        unreal.WorldMorphingConfiguration.apply(game_instance, custom_params)
+        unreal.WorldMorphingConfiguration.apply(world_context, custom_params)
         
         # 4. 获取当前参数
-        current_params = unreal.WorldMorphingConfiguration.get_current(game_instance)
+        current_params = unreal.WorldMorphingConfiguration.get_current(world_context)
         unreal.log(f"✅ 当前参数已更新:")
         unreal.log(f"  - 扩张阈值: {current_params.expansion_threshold}")
         unreal.log(f"  - 雷暴阈值: {current_params.thunderstorm_threshold}")
@@ -203,8 +206,8 @@ def test_configuration_module():
         
         # 6. 重置为默认
         unreal.log("\n3.5 重置为默认参数...")
-        unreal.WorldMorphingConfiguration.reset_to_default(game_instance)
-        current_params = unreal.WorldMorphingConfiguration.get_current(game_instance)
+        unreal.WorldMorphingConfiguration.reset_to_default(world_context)
+        current_params = unreal.WorldMorphingConfiguration.get_current(world_context)
         unreal.log(f"✅ 已重置为默认参数 (扩张阈值={current_params.expansion_threshold})")
         
         return True
@@ -218,8 +221,8 @@ def test_performance():
     log_section("测试4: 性能基准测试")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         test_sizes = [(30, 30), (50, 50), (80, 80)]
@@ -229,18 +232,18 @@ def test_performance():
             
             # 初始化
             params = unreal.WorldMorphingConfiguration.make_default()
-            unreal.WorldMorphingSimulation.initialize(game_instance, width, height, params)
+            unreal.WorldMorphingSimulation.initialize(world_context, width, height, params)
             
             # 预热
             for _ in range(5):
-                unreal.WorldMorphingSimulation.tick(game_instance, 0.016)
+                unreal.WorldMorphingSimulation.tick(world_context, 0.016)
             
             # 性能测试
             iterations = 100
             start_time = time.time()
             
             for _ in range(iterations):
-                unreal.WorldMorphingSimulation.tick(game_instance, 0.016)
+                unreal.WorldMorphingSimulation.tick(world_context, 0.016)
             
             elapsed = time.time() - start_time
             avg_time = (elapsed / iterations) * 1000

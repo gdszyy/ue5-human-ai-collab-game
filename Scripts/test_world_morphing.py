@@ -30,25 +30,16 @@ def log_section(title):
     unreal.log(f"  {title}")
     log_separator()
 
-def get_game_instance():
-    """获取PIE模式下的GameInstance"""
+def get_world_context():
+    """获取世界上下文对象（UE4兼容版本）"""
     try:
-        # 在PIE模式下，需要使用UnrealEditorSubsystem获取游戏世界
-        editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-        game_world = editor_subsystem.get_game_world()
-        
-        if not game_world:
-            unreal.log_error("❌ 无法获取游戏世界，请确保在PIE模式下运行")
-            return None
-        
-        game_instance = game_world.get_game_instance()
-        if not game_instance:
-            unreal.log_error("❌ 无法获取GameInstance")
-            return None
-        
-        return game_instance
+        actors = unreal.EditorLevelLibrary.get_all_level_actors()
+        if actors and len(actors) > 0:
+            return actors[0]
+        unreal.log_error("❌ 当前关卡中没有Actor，请确保在PIE模式下运行")
+        return None
     except Exception as e:
-        unreal.log_error(f"❌ 获取GameInstance时发生错误: {str(e)}")
+        unreal.log_error(f"❌ 获取世界上下文时发生错误: {str(e)}")
         return None
 
 def test_initialization():
@@ -57,8 +48,8 @@ def test_initialization():
     
     try:
         # 获取GameInstance
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 创建默认参数
@@ -67,15 +58,15 @@ def test_initialization():
         # 初始化世界
         unreal.log("正在初始化 50x50 网格...")
         unreal.WorldMorphingBlueprintLibrary.initialize_world(
-            game_instance, 50, 50, params
+            world_context, 50, 50, params
         )
         
         # 验证网格尺寸
-        width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(game_instance)
+        width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(world_context)
         unreal.log(f"✅ 世界已初始化: {width}x{height}")
         
         # 验证时间步
-        time_step = unreal.WorldMorphingBlueprintLibrary.get_time_step(game_instance)
+        time_step = unreal.WorldMorphingBlueprintLibrary.get_time_step(world_context)
         unreal.log(f"✅ 当前时间步: {time_step}")
         
         return True
@@ -89,16 +80,16 @@ def test_simulation_update():
     log_section("测试2: 模拟更新")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 执行10次更新
         unreal.log("正在执行10次模拟更新...")
         for i in range(10):
-            unreal.WorldMorphingBlueprintLibrary.tick_simulation(game_instance, 0.016)
+            unreal.WorldMorphingBlueprintLibrary.tick_simulation(world_context, 0.016)
         
-        time_step = unreal.WorldMorphingBlueprintLibrary.get_time_step(game_instance)
+        time_step = unreal.WorldMorphingBlueprintLibrary.get_time_step(world_context)
         unreal.log(f"✅ 更新完成，当前时间步: {time_step}")
         
         return True
@@ -112,8 +103,8 @@ def test_cell_reading():
     log_section("测试3: 读取单元格状态")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 读取中心区域的单元格
@@ -121,7 +112,7 @@ def test_cell_reading():
         
         center_x, center_y = 25, 25
         cell_state = unreal.WorldMorphingBlueprintLibrary.get_cell_at(
-            game_instance, center_x, center_y
+            world_context, center_x, center_y
         )
         
         unreal.log(f"位置 ({center_x}, {center_y}) 的单元格状态:")
@@ -134,7 +125,7 @@ def test_cell_reading():
         # 统计不同类型的单元格数量
         unreal.log("\n正在统计单元格类型分布...")
         
-        width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(game_instance)
+        width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(world_context)
         
         stats = {
             'exists': 0,
@@ -147,7 +138,7 @@ def test_cell_reading():
         
         for y in range(height):
             for x in range(width):
-                cell = unreal.WorldMorphingBlueprintLibrary.get_cell_at(game_instance, x, y)
+                cell = unreal.WorldMorphingBlueprintLibrary.get_cell_at(world_context, x, y)
                 if cell.b_exists:
                     stats['exists'] += 1
                     if cell.crystal_type == unreal.CrystalType.ALPHA:
@@ -181,12 +172,12 @@ def test_parameter_adjustment():
     log_section("测试4: 参数调整")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 获取当前参数
-        params = unreal.WorldMorphingBlueprintLibrary.get_simulation_params(game_instance)
+        params = unreal.WorldMorphingBlueprintLibrary.get_simulation_params(world_context)
         unreal.log(f"当前参数:")
         unreal.log(f"  - 扩张阈值: {params.expansion_threshold}")
         unreal.log(f"  - 雷暴阈值: {params.thunderstorm_threshold}")
@@ -198,10 +189,10 @@ def test_parameter_adjustment():
         params.thunderstorm_threshold = 15.0
         params.alpha_energy_demand = 1.0
         
-        unreal.WorldMorphingBlueprintLibrary.set_simulation_params(game_instance, params)
+        unreal.WorldMorphingBlueprintLibrary.set_simulation_params(world_context, params)
         
         # 验证参数
-        new_params = unreal.WorldMorphingBlueprintLibrary.get_simulation_params(game_instance)
+        new_params = unreal.WorldMorphingBlueprintLibrary.get_simulation_params(world_context)
         unreal.log(f"✅ 参数已更新:")
         unreal.log(f"  - 扩张阈值: {new_params.expansion_threshold}")
         unreal.log(f"  - 雷暴阈值: {new_params.thunderstorm_threshold}")
@@ -218,8 +209,8 @@ def test_performance():
     log_section("测试5: 性能基准测试")
     
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return False
         
         # 测试不同网格尺寸的性能
@@ -235,19 +226,19 @@ def test_performance():
             # 初始化
             params = unreal.WorldMorphingBlueprintLibrary.make_default_params()
             unreal.WorldMorphingBlueprintLibrary.initialize_world(
-                game_instance, width, height, params
+                world_context, width, height, params
             )
             
             # 预热
             for _ in range(5):
-                unreal.WorldMorphingBlueprintLibrary.tick_simulation(game_instance, 0.016)
+                unreal.WorldMorphingBlueprintLibrary.tick_simulation(world_context, 0.016)
             
             # 性能测试
             iterations = 100
             start_time = time.time()
             
             for _ in range(iterations):
-                unreal.WorldMorphingBlueprintLibrary.tick_simulation(game_instance, 0.016)
+                unreal.WorldMorphingBlueprintLibrary.tick_simulation(world_context, 0.016)
             
             elapsed = time.time() - start_time
             avg_time = (elapsed / iterations) * 1000  # 转换为毫秒

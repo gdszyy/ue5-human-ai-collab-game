@@ -17,36 +17,27 @@ WorldMorphingSystem 可视化测试脚本
 
 import unreal
 import os
-
-def get_game_instance():
-    """获取PIE模式下的GameInstance"""
+def get_world_context():
+    """获取世界上下文对象（UE4兼容版本）"""
     try:
-        editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-        game_world = editor_subsystem.get_game_world()
-        
-        if not game_world:
-            unreal.log_error("❌ 无法获取游戏世界，请确保在PIE模式下运行")
-            return None
-        
-        game_instance = game_world.get_game_instance()
-        if not game_instance:
-            unreal.log_error("❌ 无法获取GameInstance")
-            return None
-        
-        return game_instance
+        actors = unreal.EditorLevelLibrary.get_all_level_actors()
+        if actors and len(actors) > 0:
+            return actors[0]
+        unreal.log_error("❌ 当前关卡中没有Actor")
+        return None
     except Exception as e:
-        unreal.log_error(f"❌ 获取GameInstance时发生错误: {str(e)}")
+        unreal.log_error(f"❌ 错误: {str(e)}")
         return None
 
 def export_world_state_data():
     """导出世界状态数据"""
     try:
-        game_instance = get_game_instance()
-        if not game_instance:
+        world_context = get_world_context()
+        if not world_context:
             return None
         
         # 获取网格尺寸
-        width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(game_instance)
+        width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(world_context)
         
         if width == 0 or height == 0:
             unreal.log_error("❌ 世界未初始化，请先运行测试脚本")
@@ -73,7 +64,7 @@ def export_world_state_data():
             thunder_row = []
             
             for x in range(width):
-                cell = unreal.WorldMorphingBlueprintLibrary.get_cell_at(game_instance, x, y)
+                cell = unreal.WorldMorphingBlueprintLibrary.get_cell_at(world_context, x, y)
                 
                 mantle_row.append(cell.mantle_energy if cell.b_exists else 0)
                 temp_row.append(cell.temperature if cell.b_exists else -100)
