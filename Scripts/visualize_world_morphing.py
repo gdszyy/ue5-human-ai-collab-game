@@ -18,14 +18,31 @@ WorldMorphingSystem 可视化测试脚本
 import unreal
 import os
 
+def get_game_instance():
+    """获取PIE模式下的GameInstance"""
+    try:
+        editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
+        game_world = editor_subsystem.get_game_world()
+        
+        if not game_world:
+            unreal.log_error("❌ 无法获取游戏世界，请确保在PIE模式下运行")
+            return None
+        
+        game_instance = game_world.get_game_instance()
+        if not game_instance:
+            unreal.log_error("❌ 无法获取GameInstance")
+            return None
+        
+        return game_instance
+    except Exception as e:
+        unreal.log_error(f"❌ 获取GameInstance时发生错误: {str(e)}")
+        return None
+
 def export_world_state_data():
     """导出世界状态数据"""
     try:
-        editor_world = unreal.EditorLevelLibrary.get_editor_world()
-        game_instance = editor_world.get_game_instance()
-        
+        game_instance = get_game_instance()
         if not game_instance:
-            unreal.log_error("❌ 无法获取GameInstance，请在PIE模式下运行")
             return None
         
         # 获取网格尺寸

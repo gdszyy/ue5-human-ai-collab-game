@@ -30,17 +30,35 @@ def log_section(title):
     unreal.log(f"  {title}")
     log_separator()
 
+def get_game_instance():
+    """获取PIE模式下的GameInstance"""
+    try:
+        # 在PIE模式下，需要使用UnrealEditorSubsystem获取游戏世界
+        editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
+        game_world = editor_subsystem.get_game_world()
+        
+        if not game_world:
+            unreal.log_error("❌ 无法获取游戏世界，请确保在PIE模式下运行")
+            return None
+        
+        game_instance = game_world.get_game_instance()
+        if not game_instance:
+            unreal.log_error("❌ 无法获取GameInstance")
+            return None
+        
+        return game_instance
+    except Exception as e:
+        unreal.log_error(f"❌ 获取GameInstance时发生错误: {str(e)}")
+        return None
+
 def test_initialization():
     """测试1: 初始化世界"""
     log_section("测试1: 初始化世界")
     
     try:
         # 获取GameInstance
-        editor_world = unreal.EditorLevelLibrary.get_editor_world()
-        game_instance = editor_world.get_game_instance()
-        
+        game_instance = get_game_instance()
         if not game_instance:
-            unreal.log_error("❌ 无法获取GameInstance，请确保在PIE模式下运行")
             return False
         
         # 创建默认参数
@@ -71,8 +89,9 @@ def test_simulation_update():
     log_section("测试2: 模拟更新")
     
     try:
-        editor_world = unreal.EditorLevelLibrary.get_editor_world()
-        game_instance = editor_world.get_game_instance()
+        game_instance = get_game_instance()
+        if not game_instance:
+            return False
         
         # 执行10次更新
         unreal.log("正在执行10次模拟更新...")
@@ -93,8 +112,9 @@ def test_cell_reading():
     log_section("测试3: 读取单元格状态")
     
     try:
-        editor_world = unreal.EditorLevelLibrary.get_editor_world()
-        game_instance = editor_world.get_game_instance()
+        game_instance = get_game_instance()
+        if not game_instance:
+            return False
         
         # 读取中心区域的单元格
         unreal.log("正在读取中心区域单元格状态...")
@@ -161,8 +181,9 @@ def test_parameter_adjustment():
     log_section("测试4: 参数调整")
     
     try:
-        editor_world = unreal.EditorLevelLibrary.get_editor_world()
-        game_instance = editor_world.get_game_instance()
+        game_instance = get_game_instance()
+        if not game_instance:
+            return False
         
         # 获取当前参数
         params = unreal.WorldMorphingBlueprintLibrary.get_simulation_params(game_instance)
@@ -197,8 +218,9 @@ def test_performance():
     log_section("测试5: 性能基准测试")
     
     try:
-        editor_world = unreal.EditorLevelLibrary.get_editor_world()
-        game_instance = editor_world.get_game_instance()
+        game_instance = get_game_instance()
+        if not game_instance:
+            return False
         
         # 测试不同网格尺寸的性能
         test_sizes = [
