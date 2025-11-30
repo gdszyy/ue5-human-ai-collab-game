@@ -6,6 +6,23 @@
 #include "MarbleState.generated.h"
 
 /**
+ * 魔药类型
+ * 定义不同的魔药类型及其特性
+ */
+UENUM(BlueprintType)
+enum class EPotionType : uint8
+{
+	/** 弹射药剂 - 伤害递增 */
+	Ricochet UMETA(DisplayName = "Ricochet"),
+	
+	/** 穿透药剂 - 穿透敌人 */
+	Piercing UMETA(DisplayName = "Piercing"),
+	
+	/** 爆炸药剂 - 范围伤害 */
+	Explosive UMETA(DisplayName = "Explosive")
+};
+
+/**
  * 魔力露珠/魔药状态
  * 
  * 这个结构体存储单个魔力露珠或魔药的完整物理状态。
@@ -48,6 +65,12 @@ struct FMarbleState
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics", meta = (ClampMin = "0.1"))
 	float Mass = 100.0f;
 
+	// ========== 魔药类型（仅战斗场景） ==========
+	
+	/** 魔药类型 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Potion")
+	EPotionType PotionType = EPotionType::Ricochet;
+	
 	// ========== 生命周期（仅战斗场景） ==========
 	
 	/** 当前药效强度（每次碰撞消耗，耗尽后删除） */
