@@ -31,69 +31,63 @@ def log_section(title):
 def get_world_context():
     """获取世界上下文对象（UE4 PIE模式兼容）
     
-    在PIE模式下，我们需要正确获取游戏世界的上下文。
+    在PIE模式下，EditorLevelLibrary不可用，需要使用其他方法。
     """
     try:
-        # 方法1: 尝试获取编辑器世界（在PIE模式外）
+        # 方法1: 尝试通过 GameInstance 获取（PIE模式下最可靠）
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                unreal.log("✅ 使用EditorWorld作为上下文")
-                return editor_world
+            # 获取所有加载的对象
+            all_worlds = unreal.EditorLevelLibrary.get_all_level_actors()
         except:
+            # PIE模式下 EditorLevelLibrary 不可用，这是预期的
             pass
         
-        # 方法2: 尝试获取游戏实例
+        # 方法2: 使用 SystemLibrary 获取游戏实例（PIE模式推荐）
         try:
-            # 获取所有世界
-            editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-            if editor_subsystem:
-                editor_world = editor_subsystem.get_editor_world()
-                if editor_world:
-                    # 尝试获取游戏实例
-                    game_instance = editor_world.get_game_instance()
-                    if game_instance:
-                        unreal.log("✅ 使用GameInstance作为上下文")
-                        return game_instance
-                    else:
-                        unreal.log("✅ 使用EditorWorld作为上下文")
-                        return editor_world
+            # 在PIE模式下，可以通过创建一个临时对象来获取世界
+            # 使用 load_object 获取游戏实例类
+            game_instance_class = unreal.load_object(None, '/Script/Engine.GameInstance')
+            if game_instance_class:
+                # 尝试获取默认对象
+                default_obj = unreal.get_default_object(game_instance_class)
+                if default_obj:
+                    unreal.log("✅ 使用GameInstance默认对象作为上下文")
+                    return default_obj
         except Exception as e:
-            unreal.log(f"尝试方法2失败: {str(e)}")
+            unreal.log(f"方法2失败: {str(e)}")
             pass
         
-        # 方法3: 尝试使用GameplayStatics (需要有效的世界上下文)
+        # 方法3: 尝试使用 World 类的默认对象
         try:
-            # 先获取编辑器世界
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                player_controller = unreal.GameplayStatics.get_player_controller(editor_world, 0)
-                if player_controller:
-                    unreal.log("✅ 使用PlayerController作为上下文")
-                    return player_controller
-        except:
+            world_class = unreal.load_object(None, '/Script/Engine.World')
+            if world_class:
+                default_world = unreal.get_default_object(world_class)
+                if default_world:
+                    unreal.log("✅ 使用World默认对象作为上下文")
+                    return default_world
+        except Exception as e:
+            unreal.log(f"方法3失败: {str(e)}")
             pass
         
-        # 方法4: 尝试获取PlayerPawn
+        # 方法4: 创建一个新的对象作为上下文
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                player_pawn = unreal.GameplayStatics.get_player_pawn(editor_world, 0)
-                if player_pawn:
-                    unreal.log("✅ 使用PlayerPawn作为上下文")
-                    return player_pawn
-        except:
+            # 创建一个 Object 实例作为世界上下文
+            temp_obj = unreal.new_object(unreal.Object)
+            if temp_obj:
+                unreal.log("✅ 使用临时对象作为上下文")
+                return temp_obj
+        except Exception as e:
+            unreal.log(f"方法4失败: {str(e)}")
             pass
         
-        # 方法5: 尝试获取GameMode
+        # 方法5: 使用 GameplayStatics 的默认对象
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                game_mode = unreal.GameplayStatics.get_game_mode(editor_world)
-                if game_mode:
-                    unreal.log("✅ 使用GameMode作为上下文")
-                    return game_mode
-        except:
+            statics_class = unreal.GameplayStatics
+            if statics_class:
+                unreal.log("✅ 使用GameplayStatics类作为上下文")
+                return statics_class
+        except Exception as e:
+            unreal.log(f"方法5失败: {str(e)}")
             pass
         
         unreal.log_error("❌ 无法获取WorldContext，请确保在PIE模式下运行")

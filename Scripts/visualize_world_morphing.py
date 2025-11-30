@@ -21,58 +21,51 @@ import os
 def get_world_context():
     """获取世界上下文对象（UE4 PIE模式兼容）"""
     try:
-        # 方法1: 尝试获取编辑器世界
+        # 方法1: 尝试通过 GameInstance 获取（PIE模式下最可靠）
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                return editor_world
+            all_worlds = unreal.EditorLevelLibrary.get_all_level_actors()
         except:
+            # PIE模式下 EditorLevelLibrary 不可用，这是预期的
             pass
         
-        # 方法2: 尝试通过编辑器子系统获取
+        # 方法2: 使用 SystemLibrary 获取游戏实例（PIE模式推荐）
         try:
-            editor_subsystem = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-            if editor_subsystem:
-                editor_world = editor_subsystem.get_editor_world()
-                if editor_world:
-                    # 尝试获取游戏实例
-                    game_instance = editor_world.get_game_instance()
-                    if game_instance:
-                        return game_instance
-                    else:
-                        return editor_world
+            game_instance_class = unreal.load_object(None, '/Script/Engine.GameInstance')
+            if game_instance_class:
+                default_obj = unreal.get_default_object(game_instance_class)
+                if default_obj:
+                    return default_obj
         except Exception as e:
-            unreal.log(f"尝试方法2失败: {str(e)}")
+            unreal.log(f"方法2失败: {str(e)}")
             pass
         
-        # 方法3: 尝试使用GameplayStatics
+        # 方法3: 尝试使用 World 类的默认对象
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                player_controller = unreal.GameplayStatics.get_player_controller(editor_world, 0)
-                if player_controller:
-                    return player_controller
-        except:
+            world_class = unreal.load_object(None, '/Script/Engine.World')
+            if world_class:
+                default_world = unreal.get_default_object(world_class)
+                if default_world:
+                    return default_world
+        except Exception as e:
+            unreal.log(f"方法3失败: {str(e)}")
             pass
         
-        # 方法4: 尝试获取PlayerPawn
+        # 方法4: 创建一个新的对象作为上下文
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                player_pawn = unreal.GameplayStatics.get_player_pawn(editor_world, 0)
-                if player_pawn:
-                    return player_pawn
-        except:
+            temp_obj = unreal.new_object(unreal.Object)
+            if temp_obj:
+                return temp_obj
+        except Exception as e:
+            unreal.log(f"方法4失败: {str(e)}")
             pass
         
-        # 方法5: 尝试获取GameMode
+        # 方法5: 使用 GameplayStatics 的默认对象
         try:
-            editor_world = unreal.EditorLevelLibrary.get_editor_world()
-            if editor_world:
-                game_mode = unreal.GameplayStatics.get_game_mode(editor_world)
-                if game_mode:
-                    return game_mode
-        except:
+            statics_class = unreal.GameplayStatics
+            if statics_class:
+                return statics_class
+        except Exception as e:
+            unreal.log(f"方法5失败: {str(e)}")
             pass
         
         unreal.log_error("❌ 无法获取WorldContext")
