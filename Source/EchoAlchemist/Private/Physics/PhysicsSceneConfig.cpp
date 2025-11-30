@@ -40,6 +40,8 @@ FPhysicsSceneConfig USceneConfigFactory::CreateCombatConfig(FVector BoundaryMin,
 	// 边界配置
 	Config.bHasBoundary = true;
 	Config.BoundaryBox = FBox(BoundaryMin, BoundaryMax);
+	Config.BoundsMin = BoundaryMin;
+	Config.BoundsMax = BoundaryMax;
 	Config.BoundaryBehavior = Boundary_Bounce;
 	
 	// 碰撞配置

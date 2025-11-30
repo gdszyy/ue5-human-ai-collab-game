@@ -4,7 +4,7 @@
 #include "WorldMorphing/WorldMorphingSubsystem.h"
 #include "Engine/GameInstance.h"
 
-static UWorldMorphingSubsystem* GetSubsystem(UObject* WorldContextObject)
+static UWorldMorphingSubsystem* GetWorldMorphingSubsystem(UObject* WorldContextObject)
 {
 	if (!WorldContextObject)
 	{
@@ -31,7 +31,7 @@ bool UWorldMorphingSimulation::Initialize(UObject* WorldContextObject,
                                            int32 Height, 
                                            const FSimulationParams& Params)
 {
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystem(WorldContextObject);
 	if (!Subsystem)
 	{
 		UE_LOG(LogTemp, Error, TEXT("WorldMorphingSimulation::Initialize - Failed to get subsystem"));
@@ -44,7 +44,7 @@ bool UWorldMorphingSimulation::Initialize(UObject* WorldContextObject,
 
 void UWorldMorphingSimulation::Tick(UObject* WorldContextObject, float DeltaTime)
 {
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystem(WorldContextObject);
 	if (!Subsystem)
 	{
 		return;
@@ -55,7 +55,7 @@ void UWorldMorphingSimulation::Tick(UObject* WorldContextObject, float DeltaTime
 
 void UWorldMorphingSimulation::Reset(UObject* WorldContextObject)
 {
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystem(WorldContextObject);
 	if (!Subsystem)
 	{
 		return;
@@ -81,7 +81,7 @@ FSimulationStatus UWorldMorphingSimulation::GetStatus(UObject* WorldContextObjec
 {
 	FSimulationStatus Status;
 
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystem(WorldContextObject);
 	if (!Subsystem)
 	{
 		return Status;

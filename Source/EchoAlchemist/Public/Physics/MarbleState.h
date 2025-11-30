@@ -71,6 +71,10 @@ struct FMarbleState
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Potion")
 	EPotionType PotionType = EPotionType::Ricochet;
 	
+	/** 基础伤害（仅战斗场景） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Potion", meta = (ClampMin = "0.0"))
+	float BaseDamage = 10.0f;
+	
 	// ========== 生命周期（仅战斗场景） ==========
 	
 	/** 当前药效强度（每次碰撞消耗，耗尽后删除） */
@@ -200,6 +204,10 @@ struct FMarbleLaunchParams
 	/** 初始药效强度（由配方系统决定） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lifecycle", meta = (ClampMin = "0.0"))
 	float Potency = 1.0f;
+	
+	/** 基础伤害（仅战斗场景） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lifecycle", meta = (ClampMin = "0.0"))
+	float BaseDamage = 10.0f;
 
 	// ========== 分级降级 ==========
 	

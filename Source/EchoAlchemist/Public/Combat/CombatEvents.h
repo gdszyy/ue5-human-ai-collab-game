@@ -30,7 +30,10 @@ enum class ECombatEventType : uint8
 	// 魔药事件
 	PotionLaunched UMETA(DisplayName = "Potion Launched"),
 	PotionCollided UMETA(DisplayName = "Potion Collided"),
-	PotionExpired UMETA(DisplayName = "Potion Expired")
+	PotionExpired UMETA(DisplayName = "Potion Expired"),
+	
+	// 碰撞事件
+	MarbleHitEnemy UMETA(DisplayName = "Marble Hit Enemy")
 };
 
 /**
@@ -91,6 +94,7 @@ struct ECHOALCHEMIST_API FCombatEvent
 		case ECombatEventType::PotionLaunched: return TEXT("Potion Launched");
 		case ECombatEventType::PotionCollided: return TEXT("Potion Collided");
 		case ECombatEventType::PotionExpired: return TEXT("Potion Expired");
+		case ECombatEventType::MarbleHitEnemy: return TEXT("Marble Hit Enemy");
 		default: return TEXT("Unknown");
 		}
 	}

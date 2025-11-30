@@ -50,6 +50,10 @@ struct FCollisionBody
 	/** 形状类型（圆形或矩形） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
 	EEchoCollisionShapeType ShapeType = EEchoCollisionShapeType::Circle;
+	
+	/** 是否为静态物体（静态物体不会移动） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
+	bool bIsStatic = false;
 
 	// ========== 圆形参数 ==========
 	

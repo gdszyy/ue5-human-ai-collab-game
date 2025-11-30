@@ -19,15 +19,16 @@ FCombatConfig UCombatBlueprintLibrary::CreateCombatConfig(int32 Difficulty)
 	}
 }
 
-FPhysicsSceneConfig UCombatBlueprintLibrary::CreatePhysicsSceneConfig(EPhysicsSceneType SceneType)
+FPhysicsSceneConfig UCombatBlueprintLibrary::CreatePhysicsSceneConfig(TEnumAsByte<EPhysicsSceneType> SceneType)
 {
-	if (SceneType == EPhysicsSceneType::Workbench)
+	if (SceneType == PhysicsScene_Workbench)
 	{
-		return FPhysicsSceneConfig::CreateWorkbenchConfig();
+		return USceneConfigFactory::CreateWorkbenchConfig();
 	}
 	else
 	{
-		return FPhysicsSceneConfig::CreateCombatConfig();
+		// 使用默认边界
+		return USceneConfigFactory::CreateCombatConfig(FVector(-500, -500, 0), FVector(500, 500, 1000));
 	}
 }
 
@@ -48,8 +49,6 @@ FMarbleState UCombatBlueprintLibrary::CreateMarbleState(
 	Marble.Potency = Potency;
 	Marble.MaxPotency = Potency;
 	Marble.HitCount = 0;
-	Marble.bIsActive = true;
-	Marble.Implementation = EMarbleImplementation::Actor;
 	return Marble;
 }
 

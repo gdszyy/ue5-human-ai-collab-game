@@ -191,7 +191,7 @@ TArray<FRecipe> UAlchemyBlueprintLibrary::GetAllRecipesWithLog(UObject* WorldCon
 	for (const FRecipe& Recipe : Recipes)
 	{
 		UE_LOG(LogTemp, Log, TEXT("- %s + %s = %s (Power: %d)"), 
-			*Recipe.Element1, *Recipe.Element2, *Recipe.Result.Name, *Recipe.Result.Power);
+			*Recipe.Element1, *Recipe.Element2, *Recipe.Result.Name, Recipe.Result.Power);
 	}
 	UE_LOG(LogTemp, Log, TEXT("========================================"));
 	

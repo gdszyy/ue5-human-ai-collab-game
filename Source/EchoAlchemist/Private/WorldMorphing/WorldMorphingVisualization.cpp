@@ -4,7 +4,7 @@
 #include "WorldMorphing/WorldMorphingSubsystem.h"
 #include "Engine/GameInstance.h"
 
-static UWorldMorphingSubsystem* GetSubsystem(UObject* WorldContextObject)
+static UWorldMorphingSubsystem* GetWorldMorphingSubsystemForVisualization(UObject* WorldContextObject)
 {
 	if (!WorldContextObject)
 	{
@@ -28,7 +28,7 @@ static UWorldMorphingSubsystem* GetSubsystem(UObject* WorldContextObject)
 
 FCellState UWorldMorphingVisualization::GetCellState(UObject* WorldContextObject, int32 X, int32 Y)
 {
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystemForVisualization(WorldContextObject);
 	if (!Subsystem)
 	{
 		return FCellState();
@@ -43,7 +43,7 @@ TArray<FCellState> UWorldMorphingVisualization::GetRegionStates(UObject* WorldCo
 {
 	TArray<FCellState> States;
 
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystemForVisualization(WorldContextObject);
 	if (!Subsystem)
 	{
 		return States;
@@ -68,7 +68,7 @@ FWorldStatistics UWorldMorphingVisualization::GetStatistics(UObject* WorldContex
 {
 	FWorldStatistics Stats;
 
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystemForVisualization(WorldContextObject);
 	if (!Subsystem)
 	{
 		return Stats;
@@ -137,7 +137,7 @@ TArray<float> UWorldMorphingVisualization::GetHeatmapData(UObject* WorldContextO
 {
 	TArray<float> HeatmapData;
 
-	UWorldMorphingSubsystem* Subsystem = GetSubsystem(WorldContextObject);
+	UWorldMorphingSubsystem* Subsystem = GetWorldMorphingSubsystemForVisualization(WorldContextObject);
 	if (!Subsystem)
 	{
 		return HeatmapData;

@@ -81,6 +81,14 @@ struct FPhysicsSceneConfig
 	/** 边界盒（世界坐标系） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")
 	FBox BoundaryBox = FBox(FVector(-1000, -1000, -1000), FVector(1000, 1000, 1000));
+	
+	/** 边界最小点（世界坐标系） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")
+	FVector BoundsMin = FVector(-1000, -1000, -1000);
+	
+	/** 边界最大点（世界坐标系） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")
+	FVector BoundsMax = FVector(1000, 1000, 1000);
 
 	/** 边界行为（删除、反弹或无） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")

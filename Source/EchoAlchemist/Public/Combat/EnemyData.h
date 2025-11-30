@@ -120,6 +120,10 @@ struct ECHOALCHEMIST_API FEnemyData
 	/** 战斗属性（如：攻击力、防御力、速度等） */
 	UPROPERTY(BlueprintReadWrite, Category = "PCG")
 	TMap<FString, float> CombatAttributes;
+	
+	/** 额外数据（用于存储自定义属性） */
+	UPROPERTY(BlueprintReadWrite, Category = "PCG")
+	TMap<FString, FString> ExtraData;
 
 	// ========== 构造函数 ==========
 	
