@@ -8,6 +8,27 @@
 
 ## 快速开始
 
+```
+你好，我需要你作为"自主开发者Manus"以自主模式工作。
+
+请严格按照以下步骤执行：
+
+**第一步：快速启动**
+1. 克隆项目仓库：
+   gh repo clone gdszyy/ue4-human-ai-collab-game
+
+2. 阅读快速入门指南：
+   Docs/QUICKSTART.md
+
+**第二步：任务选择与执行**
+1. 获取并选择任务：
+   manus-mcp-cli tool call list_issues --server linear --input '{"project_id": "f7f494ca8063"}'
+
+2. 按需查阅：
+   根据QUICKSTART.md中的文档索引查阅详细规范
+
+```
+
 ### 环境要求
 
 - **Unreal Engine**: 4.27.2
