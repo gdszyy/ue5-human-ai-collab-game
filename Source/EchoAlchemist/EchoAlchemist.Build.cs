@@ -13,7 +13,8 @@ public class EchoAlchemist : ModuleRules
 			"CoreUObject", 
 			"Engine", 
 			"InputCore",
-			"Niagara"  // 混合物理系统需要Niagara粒子系统
+			"Niagara",  // 混合物理系统需要Niagara粒子系统
+			"Paper2D"   // MonsterVisualizer需要Paper2D插件
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

@@ -21,6 +21,10 @@
 		{
 			"Name": "EditorScriptingUtilities",
 			"Enabled": true
+		},
+		{
+			"Name": "Paper2D",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
