@@ -6,12 +6,31 @@
 
 static UWorldMorphingSubsystem* GetWorldMorphingSubsystemForVisualization(UObject* WorldContextObject)
 {
-	if (!WorldContextObject)
+	UWorld* World = nullptr;
+	
+	// 方法1: 尝试从WorldContextObject获取World
+	if (WorldContextObject)
 	{
-		return nullptr;
+		World = WorldContextObject->GetWorld();
 	}
-
-	UWorld* World = WorldContextObject->GetWorld();
+	
+	// 方法2: 如果WorldContextObject为nullptr或无法获取World，尝试使用GEngine
+	if (!World && GEngine)
+	{
+		// 在PIE模式下，尝试获取PIE世界
+		for (const FWorldContext& Context : GEngine->GetWorldContexts())
+		{
+			if (Context.WorldType == EWorldType::PIE || Context.WorldType == EWorldType::Game)
+			{
+				World = Context.World();
+				if (World)
+				{
+					break;
+				}
+			}
+		}
+	}
+	
 	if (!World)
 	{
 		return nullptr;

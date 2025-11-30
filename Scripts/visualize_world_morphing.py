@@ -21,54 +21,15 @@ import os
 def get_world_context():
     """获取世界上下文对象（UE4 PIE模式兼容）"""
     try:
-        # 方法1: 尝试通过 GameInstance 获取（PIE模式下最可靠）
+        # 方法1: 尝试获取所有 Actor
         try:
-            all_worlds = unreal.EditorLevelLibrary.get_all_level_actors()
+            all_actors = unreal.EditorLevelLibrary.get_all_level_actors()
+            if all_actors and len(all_actors) > 0:
+                return all_actors[0]
         except:
-            # PIE模式下 EditorLevelLibrary 不可用，这是预期的
             pass
         
-        # 方法2: 使用 SystemLibrary 获取游戏实例（PIE模式推荐）
-        try:
-            game_instance_class = unreal.load_object(None, '/Script/Engine.GameInstance')
-            if game_instance_class:
-                default_obj = unreal.get_default_object(game_instance_class)
-                if default_obj:
-                    return default_obj
-        except Exception as e:
-            unreal.log(f"方法2失败: {str(e)}")
-            pass
-        
-        # 方法3: 尝试使用 World 类的默认对象
-        try:
-            world_class = unreal.load_object(None, '/Script/Engine.World')
-            if world_class:
-                default_world = unreal.get_default_object(world_class)
-                if default_world:
-                    return default_world
-        except Exception as e:
-            unreal.log(f"方法3失败: {str(e)}")
-            pass
-        
-        # 方法4: 创建一个新的对象作为上下文
-        try:
-            temp_obj = unreal.new_object(unreal.Object)
-            if temp_obj:
-                return temp_obj
-        except Exception as e:
-            unreal.log(f"方法4失败: {str(e)}")
-            pass
-        
-        # 方法5: 使用 GameplayStatics 的默认对象
-        try:
-            statics_class = unreal.GameplayStatics
-            if statics_class:
-                return statics_class
-        except Exception as e:
-            unreal.log(f"方法5失败: {str(e)}")
-            pass
-        
-        unreal.log_error("❌ 无法获取WorldContext")
+        # 方法2: 返回 None
         return None
         
     except Exception as e:
@@ -79,8 +40,6 @@ def export_world_state_data():
     """导出世界状态数据"""
     try:
         world_context = get_world_context()
-        if not world_context:
-            return None
         
         # 获取网格尺寸
         width, height = unreal.WorldMorphingBlueprintLibrary.get_grid_size(world_context)
@@ -112,25 +71,57 @@ def export_world_state_data():
             for x in range(width):
                 cell = unreal.WorldMorphingBlueprintLibrary.get_cell_at(world_context, x, y)
                 
-                mantle_row.append(cell.mantle_energy if cell.b_exists else 0)
-                temp_row.append(cell.temperature if cell.b_exists else -100)
+                # 处理属性名称的不同可能性
+                try:
+                    exists = cell.b_exists
+                except AttributeError:
+                    try:
+                        exists = cell.exists
+                    except AttributeError:
+                        exists = getattr(cell, 'bExists', False)
+                
+                try:
+                    mantle_energy = cell.mantle_energy
+                except AttributeError:
+                    mantle_energy = getattr(cell, 'MantleEnergy', 0.0)
+                
+                try:
+                    temperature = cell.temperature
+                except AttributeError:
+                    temperature = getattr(cell, 'Temperature', 0.0)
+                
+                try:
+                    crystal_type = cell.crystal_type
+                except AttributeError:
+                    crystal_type = getattr(cell, 'CrystalType', unreal.CrystalType.EMPTY)
+                
+                try:
+                    has_thunderstorm = cell.b_has_thunderstorm
+                except AttributeError:
+                    try:
+                        has_thunderstorm = cell.has_thunderstorm
+                    except AttributeError:
+                        has_thunderstorm = getattr(cell, 'bHasThunderstorm', False)
+                
+                mantle_row.append(mantle_energy if exists else 0)
+                temp_row.append(temperature if exists else -100)
                 
                 # 晶石类型转换为数字
-                if not cell.b_exists:
+                if not exists:
                     crystal_row.append(-1)
-                elif cell.crystal_type == unreal.CrystalType.EMPTY:
+                elif crystal_type == unreal.CrystalType.EMPTY:
                     crystal_row.append(0)
-                elif cell.crystal_type == unreal.CrystalType.ALPHA:
+                elif crystal_type == unreal.CrystalType.ALPHA:
                     crystal_row.append(1)
-                elif cell.crystal_type == unreal.CrystalType.BETA:
+                elif crystal_type == unreal.CrystalType.BETA:
                     crystal_row.append(2)
-                elif cell.crystal_type == unreal.CrystalType.HUMAN:
+                elif crystal_type == unreal.CrystalType.HUMAN:
                     crystal_row.append(3)
                 else:
                     crystal_row.append(0)
                 
-                exists_row.append(1 if cell.b_exists else 0)
-                thunder_row.append(1 if cell.b_has_thunderstorm else 0)
+                exists_row.append(1 if exists else 0)
+                thunder_row.append(1 if has_thunderstorm else 0)
             
             data['mantle_energy'].append(mantle_row)
             data['temperature'].append(temp_row)
@@ -143,6 +134,8 @@ def export_world_state_data():
         
     except Exception as e:
         unreal.log_error(f"❌ 导出数据失败: {str(e)}")
+        import traceback
+        unreal.log_error(traceback.format_exc())
         return None
 
 def save_data_to_file(data, filename):
