@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Physics/PhysicsSceneConfig.h"
+#include "Physics/CollisionShape.h"
 #include "EnemyData.generated.h"
 
 /**
@@ -100,7 +101,7 @@ struct ECHOALCHEMIST_API FEnemyData
 	
 	/** 碰撞形状 */
 	UPROPERTY(BlueprintReadWrite, Category = "Collision")
-	ECollisionShapeType CollisionShape = ECollisionShapeType::Circle;
+	EEchoCollisionShapeType CollisionShape = EEchoCollisionShapeType::Circle;
 
 	/** 碰撞半径（cm，用于圆形碰撞） */
 	UPROPERTY(BlueprintReadWrite, Category = "Collision")

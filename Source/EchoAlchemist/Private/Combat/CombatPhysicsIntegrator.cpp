@@ -267,7 +267,7 @@ void UCombatPhysicsIntegrator::RegisterMarbleCollisionBody(FGuid MarbleID, FVect
 	FCollisionBody Body;
 	Body.ID = FGuid::NewGuid();
 	Body.Position = Position;
-	Body.ShapeType = ECollisionShapeType::Circle;
+	Body.ShapeType = EEchoCollisionShapeType::Circle;
 	Body.Radius = Radius;
 	Body.bIsStatic = false;
 	
@@ -293,7 +293,7 @@ void UCombatPhysicsIntegrator::RegisterEnemyCollisionBody(FGuid EnemyID, FVector
 	FCollisionBody Body;
 	Body.ID = FGuid::NewGuid();
 	Body.Position = Position;
-	Body.ShapeType = ECollisionShapeType::Circle;
+	Body.ShapeType = EEchoCollisionShapeType::Circle;
 	Body.Radius = Radius;
 	Body.bIsStatic = false;
 	
