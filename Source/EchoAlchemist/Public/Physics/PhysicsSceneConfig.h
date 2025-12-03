@@ -7,11 +7,6 @@
 #include "PhysicsSceneConfig.generated.h"
 
 /**
- * 物理场景类型
- * 用于区分炼金工作台和战斗场景的不同物理规则
- */
-UENUM(BlueprintType)
-/**
  * 战斗场景类型
  * 用于区分不同的战斗场景，例如下落式或环形
  */
