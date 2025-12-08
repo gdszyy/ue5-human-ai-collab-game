@@ -52,6 +52,7 @@
 | 任务ID | 任务标题 | 状态 | 优先级 | 协议仓库资源 | Game仓库资源 | 备注 |
 |--------|----------|------|--------|--------------|--------------|------|
 | VOI-12 | 炼金配方系统 - 魔药组合与配方库 | Todo | Urgent | TDD: `docs/tech/recipe_system_tdd.md` | 无 | ✅ TDD已创建（2025-11-30）<br>❌ 代码待实现 |
+| VOI-20 | 实现算法驱动的调色板生成器 | Done | Urgent | 无 | 代码: `Source/EchoAlchemist/Public/PCG/PaletteGeneratorExtended.h`<br>代码: `Source/EchoAlchemist/Private/PCG/PaletteGeneratorExtended.cpp`<br>文档: `Docs/CoreModules/PaletteGeneratorExtended.md`<br>测试: `Source/EchoAlchemist/Tests/PCG/PaletteGeneratorExtendedTest.cpp` | ✅ 扩展调色板生成器已实现<br>✅ 6种栖息地色谱已定义<br>✅ 智能调色板生成算法已实现<br>✅ 稀有度和词条调整已实现<br>✅ 单元测试已完成 |
 | VOI-13 | 教学与引导系统 - 基于AINPC的渐进式教学 | Backlog | Medium | TDD: 待创建 | 无 | 可在MVP后实现 |
 | VOI-14 | 资源管理与经济系统 - 材料采集与消耗平衡 | Backlog | High | TDD: 待创建 | 无 | 经济系统基础 |
 | VOI-15 | 铭刻解谜生成器 - 程序化生成填字谜题 | Backlog | Medium | TDD: 待创建 | 无 | 内容生成优化 |
@@ -78,6 +79,7 @@
 | 2025-12-08 | VOI-25 | 标记为已完成，碰撞检测系统已实现 | Manus AI - 自主开发者 |
 | 2025-12-08 | VOI-26 | 标记为进行中，混合物理系统C++核心已完成，Niagara集成待蓝图配置 | Manus AI - 自主开发者 |
 | 2025-12-08 | VOI-27 | 实现特殊效果系统（引力奇点、虫洞传送、弹珠分裂、速度修改、连锁触发），标记为进行中 | Manus AI - 自主开发者 |
+| 2025-12-08 | VOI-20 | 实现算法驱动的调色板生成器，创建UPaletteGeneratorExtended类，标记为已完成 | Manus AI - 自主开发者 |
 
 ---
 
