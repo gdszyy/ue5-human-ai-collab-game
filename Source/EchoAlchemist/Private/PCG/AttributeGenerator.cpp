@@ -201,7 +201,15 @@ FCombatTrait UAttributeGenerator::GenerateCombatTrait(int32 Seed, ERarity MinRar
     FRandomStream RandomStream = GetSeededRandomStream(Seed);
     FCombatTrait Result;
 
-    // Define trait library (in a real implementation, this would be loaded from a data table)
+    // TODO: Load trait library from data table instead of hardcoding
+    // This is a temporary implementation for rapid prototyping.
+    // In production, create a data table (DT_CombatTraits) with FCombatTraitData structure.
+    // Benefits of using data table:
+    // - Easy to add/modify traits without recompiling
+    // - Designers can balance traits without touching code
+    // - Support for localization
+    // - Better organization and maintainability
+    
     struct FTraitTemplate
     {
         FName ID;

@@ -3,6 +3,8 @@
 #include "PCG/MonsterActor.h"
 #include "PCG/AppearanceAssembler.h"
 #include "Components/SceneComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Engine/Engine.h"
 
 AMonsterActor::AMonsterActor()
 {
@@ -49,8 +51,15 @@ void AMonsterActor::ReconstructAppearance()
 
 void AMonsterActor::PlayAnimation(EMonsterAnimationType AnimationType)
 {
-    if (!BaseFlipbookComponent || !CurrentSkeletonData.IdleFlipbook)
+    if (!BaseFlipbookComponent)
     {
+        UE_LOG(LogTemp, Warning, TEXT("MonsterActor: BaseFlipbookComponent is null, cannot play animation"));
+        return;
+    }
+
+    if (!CurrentSkeletonData.IdleFlipbook)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("MonsterActor: No skeleton data loaded, cannot play animation"));
         return;
     }
 
@@ -77,6 +86,16 @@ void AMonsterActor::PlayAnimation(EMonsterAnimationType AnimationType)
         BaseFlipbookComponent->SetFlipbook(FlipbookToPlay);
         BaseFlipbookComponent->Play();
     }
+    else
+    {
+        // Fallback to idle animation if specific animation is not available
+        UE_LOG(LogTemp, Warning, TEXT("MonsterActor: Animation type not available, falling back to Idle"));
+        if (CurrentSkeletonData.IdleFlipbook)
+        {
+            BaseFlipbookComponent->SetFlipbook(CurrentSkeletonData.IdleFlipbook);
+            BaseFlipbookComponent->Play();
+        }
+    }
 }
 
 void AMonsterActor::ClearAppearance()
@@ -100,8 +119,15 @@ void AMonsterActor::ClearAppearance()
 
 void AMonsterActor::ConstructBaseSkeleton()
 {
-    if (!SkeletonDataTable || !BaseFlipbookComponent)
+    if (!SkeletonDataTable)
     {
+        UE_LOG(LogTemp, Error, TEXT("MonsterActor: SkeletonDataTable is not set!"));
+        return;
+    }
+
+    if (!BaseFlipbookComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("MonsterActor: BaseFlipbookComponent is null!"));
         return;
     }
 
@@ -117,24 +143,44 @@ void AMonsterActor::ConstructBaseSkeleton()
             BaseFlipbookComponent->SetFlipbook(SkeletonData.IdleFlipbook);
             BaseFlipbookComponent->Play();
         }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("MonsterActor: Skeleton has no idle flipbook"));
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("MonsterActor: Failed to select skeleton for habitat %d, size %d"),
+               static_cast<int32>(MonsterAttributes.EcologyAttributes.Habitat),
+               static_cast<int32>(MonsterAttributes.EcologyAttributes.SizeClass));
     }
 }
 
 void AMonsterActor::AttachParts()
 {
-    if (!PartDataTable || !BaseFlipbookComponent)
+    if (!PartDataTable)
     {
+        UE_LOG(LogTemp, Warning, TEXT("MonsterActor: PartDataTable is not set, skipping part attachment"));
+        return;
+    }
+
+    if (!BaseFlipbookComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("MonsterActor: BaseFlipbookComponent is null!"));
         return;
     }
 
     // Select parts based on combat attributes
     TArray<FPartData> SelectedParts = UAppearanceAssembler::SelectParts(MonsterAttributes.CombatAttributes, PartDataTable);
 
+    UE_LOG(LogTemp, Log, TEXT("MonsterActor: Attaching %d parts"), SelectedParts.Num());
+
     // Create and attach part components
     for (const FPartData& PartData : SelectedParts)
     {
         if (!PartData.PartSprite)
         {
+            UE_LOG(LogTemp, Warning, TEXT("MonsterActor: Part has no sprite, skipping"));
             continue;
         }
 
@@ -154,6 +200,16 @@ void AMonsterActor::AttachParts()
             // Set Z-order (translucent sort priority)
             PartComponent->SetTranslucentSortPriority(PartData.ZOrder);
 
+            // Apply palette swapping to part if material is available
+            if (PaletteSwapMaterial && CurrentPaletteData.Habitat != EHabitatType::Forest)
+            {
+                UMaterialInstanceDynamic* PartMaterial = UAppearanceAssembler::CreatePaletteSwapMaterial(PaletteSwapMaterial, CurrentPaletteData);
+                if (PartMaterial)
+                {
+                    PartComponent->SetMaterial(0, PartMaterial);
+                }
+            }
+
             PartComponents.Add(PartComponent);
         }
     }
@@ -161,8 +217,21 @@ void AMonsterActor::AttachParts()
 
 void AMonsterActor::ApplyPaletteSwapping()
 {
-    if (!PaletteDataTable || !PaletteSwapMaterial || !BaseFlipbookComponent)
+    if (!PaletteDataTable)
     {
+        UE_LOG(LogTemp, Warning, TEXT("MonsterActor: PaletteDataTable is not set, using default colors"));
+        return;
+    }
+
+    if (!PaletteSwapMaterial)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("MonsterActor: PaletteSwapMaterial is not set, using default material"));
+        return;
+    }
+
+    if (!BaseFlipbookComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("MonsterActor: BaseFlipbookComponent is null!"));
         return;
     }
 
@@ -177,7 +246,18 @@ void AMonsterActor::ApplyPaletteSwapping()
         if (DynamicMaterial)
         {
             BaseFlipbookComponent->SetMaterial(0, DynamicMaterial);
+            UE_LOG(LogTemp, Log, TEXT("MonsterActor: Applied palette for habitat %d"),
+                   static_cast<int32>(MonsterAttributes.EcologyAttributes.Habitat));
         }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("MonsterActor: Failed to create palette swap material"));
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("MonsterActor: Failed to get palette for habitat %d"),
+               static_cast<int32>(MonsterAttributes.EcologyAttributes.Habitat));
     }
 }
 
