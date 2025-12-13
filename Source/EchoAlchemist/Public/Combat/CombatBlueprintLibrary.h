@@ -43,7 +43,7 @@ public:
 	 * @return 物理场景配置
 	 */
 	UFUNCTION(BlueprintPure, Category = "Combat|Config", meta = (Keywords = "create config"))
-	static FPhysicsSceneConfig CreatePhysicsSceneConfig(TEnumAsByte<EPhysicsSceneType> SceneType);
+	static FPhysicsSceneConfig CreatePhysicsSceneConfig(EPhysicsSceneType SceneType);
 
 	// ========== 魔力露珠/魔药 ==========
 	

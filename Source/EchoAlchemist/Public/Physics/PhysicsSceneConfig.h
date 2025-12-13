@@ -57,7 +57,7 @@ struct FPhysicsSceneConfig
 
 	/** 场景类型 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scene")
-	TEnumAsByte<EPhysicsSceneType> SceneType = PhysicsScene_Combat;
+	EPhysicsSceneType SceneType = PhysicsScene_Combat;
 
 	// ========== 重力配置 ==========
 	
@@ -93,7 +93,7 @@ struct FPhysicsSceneConfig
 
 	/** 边界行为（删除、反弹或无） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")
-	TEnumAsByte<EBoundaryBehavior> BoundaryBehavior = Boundary_None;
+	EBoundaryBehavior BoundaryBehavior = Boundary_None;
 
 	// ========== 碰撞配置 ==========
 	

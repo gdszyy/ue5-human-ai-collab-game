@@ -12,9 +12,10 @@ public class EchoAlchemist : ModuleRules
 			"Core", 
 			"CoreUObject", 
 			"Engine", 
-			"InputCore",
-			"Niagara",  // 混合物理系统需要Niagara粒子系统
-			"Paper2D"   // MonsterVisualizer需要Paper2D插件
+			"InputCore",        // 传统输入系统（保留以兼容）
+			"EnhancedInput",    // UE5增强输入系统
+			"Niagara",          // 混合物理系统需要Niagara粒子系统
+			"Paper2D"           // MonsterVisualizer需要Paper2D插件
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

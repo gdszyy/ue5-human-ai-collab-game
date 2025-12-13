@@ -19,7 +19,7 @@ FCombatConfig UCombatBlueprintLibrary::CreateCombatConfig(int32 Difficulty)
 	}
 }
 
-FPhysicsSceneConfig UCombatBlueprintLibrary::CreatePhysicsSceneConfig(TEnumAsByte<EPhysicsSceneType> SceneType)
+FPhysicsSceneConfig UCombatBlueprintLibrary::CreatePhysicsSceneConfig(EPhysicsSceneType SceneType)
 {
 	if (SceneType == PhysicsScene_Workbench)
 	{
