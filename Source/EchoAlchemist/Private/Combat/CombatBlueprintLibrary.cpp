@@ -21,7 +21,7 @@ FCombatConfig UCombatBlueprintLibrary::CreateCombatConfig(int32 Difficulty)
 
 FPhysicsSceneConfig UCombatBlueprintLibrary::CreatePhysicsSceneConfig(EPhysicsSceneType SceneType)
 {
-	if (SceneType == PhysicsScene_Workbench)
+	if (SceneType == EPhysicsSceneType::PhysicsScene_Workbench)
 	{
 		return USceneConfigFactory::CreateWorkbenchConfig();
 	}

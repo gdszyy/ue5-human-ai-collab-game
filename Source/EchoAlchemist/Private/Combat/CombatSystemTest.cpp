@@ -319,7 +319,7 @@ bool UCombatSystemTest::TestPhysicsIntegrator()
 	// 创建物理系统
 	UMarblePhysicsSystem* PhysicsSystem = NewObject<UMarblePhysicsSystem>();
 	FPhysicsSceneConfig PhysicsConfig;
-	PhysicsConfig.SceneType = PhysicsScene_Combat;
+	PhysicsConfig.SceneType = EPhysicsSceneType::PhysicsScene_Combat;
 	PhysicsConfig.BoundsMin = FVector(-500.0f, -500.0f, 0.0f);
 	PhysicsConfig.BoundsMax = FVector(500.0f, 500.0f, 1000.0f);
 	PhysicsSystem->InitializeScene(PhysicsConfig);

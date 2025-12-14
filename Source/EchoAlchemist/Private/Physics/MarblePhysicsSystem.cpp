@@ -192,7 +192,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	if (Marble.Position.X - Marble.Radius < Boundary.Min.X)
 	{
 		Marble.Position.X = Boundary.Min.X + Marble.Radius;
-		if (SceneConfig.BoundaryBehavior == Boundary_Bounce)
+		if (SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Bounce)
 		{
 			Marble.Velocity.X = FMath::Abs(Marble.Velocity.X);
 		}
@@ -201,7 +201,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	else if (Marble.Position.X + Marble.Radius > Boundary.Max.X)
 	{
 		Marble.Position.X = Boundary.Max.X - Marble.Radius;
-		if (SceneConfig.BoundaryBehavior == Boundary_Bounce)
+		if (SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Bounce)
 		{
 			Marble.Velocity.X = -FMath::Abs(Marble.Velocity.X);
 		}
@@ -212,7 +212,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	if (Marble.Position.Y - Marble.Radius < Boundary.Min.Y)
 	{
 		Marble.Position.Y = Boundary.Min.Y + Marble.Radius;
-		if (SceneConfig.BoundaryBehavior == Boundary_Bounce)
+		if (SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Bounce)
 		{
 			Marble.Velocity.Y = FMath::Abs(Marble.Velocity.Y);
 		}
@@ -221,7 +221,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	else if (Marble.Position.Y + Marble.Radius > Boundary.Max.Y)
 	{
 		Marble.Position.Y = Boundary.Max.Y - Marble.Radius;
-		if (SceneConfig.BoundaryBehavior == Boundary_Bounce)
+		if (SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Bounce)
 		{
 			Marble.Velocity.Y = -FMath::Abs(Marble.Velocity.Y);
 		}
@@ -232,7 +232,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	if (Marble.Position.Z - Marble.Radius < Boundary.Min.Z)
 	{
 		Marble.Position.Z = Boundary.Min.Z + Marble.Radius;
-		if (SceneConfig.BoundaryBehavior == Boundary_Bounce)
+		if (SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Bounce)
 		{
 			Marble.Velocity.Z = FMath::Abs(Marble.Velocity.Z);
 		}
@@ -241,7 +241,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	else if (Marble.Position.Z + Marble.Radius > Boundary.Max.Z)
 	{
 		Marble.Position.Z = Boundary.Max.Z - Marble.Radius;
-		if (SceneConfig.BoundaryBehavior == Boundary_Bounce)
+		if (SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Bounce)
 		{
 			Marble.Velocity.Z = -FMath::Abs(Marble.Velocity.Z);
 		}
@@ -249,7 +249,7 @@ bool UMarblePhysicsSystem::HandleBoundary(FMarbleState& Marble)
 	}
 	
 	// 如果碰到边界且行为是删除，标记为无效
-	if (bHitBoundary && SceneConfig.BoundaryBehavior == Boundary_Delete)
+	if (bHitBoundary && SceneConfig.BoundaryBehavior == EBoundaryBehavior::Boundary_Delete)
 	{
 		Marble.Potency = 0.0f;  // 标记为无效
 		return false;

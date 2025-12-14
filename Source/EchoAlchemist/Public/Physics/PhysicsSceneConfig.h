@@ -12,7 +12,7 @@
  * 用于区分炼金工作台和战斗场景的不同物理规则
  */
 UENUM(BlueprintType)
-enum EPhysicsSceneType
+enum class EPhysicsSceneType : uint8
 {
 	/** 炼金工作台场景 - 有重力，高精度物理 */
 	PhysicsScene_Workbench UMETA(DisplayName = "Workbench"),
@@ -26,7 +26,7 @@ enum EPhysicsSceneType
  * 定义魔力露珠/魔药碰到边界时的行为
  */
 UENUM(BlueprintType)
-enum EBoundaryBehavior
+enum class EBoundaryBehavior : uint8
 {
 	/** 离开边界时删除 */
 	Boundary_Delete UMETA(DisplayName = "Delete"),
@@ -57,7 +57,7 @@ struct FPhysicsSceneConfig
 
 	/** 场景类型 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scene")
-	EPhysicsSceneType SceneType = PhysicsScene_Combat;
+	EPhysicsSceneType SceneType = EPhysicsSceneType::PhysicsScene_Combat;
 
 	// ========== 重力配置 ==========
 	
@@ -93,7 +93,7 @@ struct FPhysicsSceneConfig
 
 	/** 边界行为（删除、反弹或无） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boundary")
-	EBoundaryBehavior BoundaryBehavior = Boundary_None;
+	EBoundaryBehavior BoundaryBehavior = EBoundaryBehavior::Boundary_None;
 
 	// ========== 碰撞配置 ==========
 	

@@ -33,7 +33,7 @@ bool FMarblePhysicsSystemInitTest::RunTest(const FString& Parameters)
 
 	// 测试初始化后状态
 	TestTrue(TEXT("PhysicsSystem should be initialized"), PhysicsSystem->IsInitialized());
-	TestEqual(TEXT("Scene type should be Combat"), PhysicsSystem->GetSceneType(), PhysicsScene_Combat);
+	TestEqual(TEXT("Scene type should be Combat"), PhysicsSystem->GetSceneType(), EPhysicsSceneType::PhysicsScene_Combat);
 	TestEqual(TEXT("Marble count should be 0"), PhysicsSystem->GetMarbleCount(), 0);
 
 	return true;
