@@ -17,7 +17,7 @@
  * 
  * 1. 创建引力奇点
  *    ```
- *    FGravitySingularityParams Params;
+ *    FGravityWellParams Params;
  *    Params.Position = GetActorLocation();
  *    Params.Strength = 500.0f;
  *    Params.Radius = 300.0f;
@@ -27,7 +27,7 @@
  * 
  * 2. 创建虫洞
  *    ```
- *    FWormholeTeleportParams Params;
+ *    FWormholeParams Params;
  *    Params.EntryPosition = EntryLocation;
  *    Params.ExitPosition = ExitLocation;
  *    Params.EntryRadius = 50.0f;
@@ -66,7 +66,7 @@ public:
 	 * - Duration=0表示永久存在
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Gravity")
-	FGuid CreateGravitySingularity(const FGravitySingularityParams& Params);
+	FGuid CreateGravitySingularity(const FGravityWellParams& Params);
 
 	/**
 	 * 移除引力奇点
@@ -83,7 +83,7 @@ public:
 	 * @return 所有引力奇点的参数数组
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Gravity")
-	TArray<FGravitySingularityParams> GetAllGravitySingularities() const;
+	TArray<FGravityWellParams> GetAllGravitySingularities() const;
 
 	// ========== 虫洞传送 ==========
 	
@@ -98,7 +98,7 @@ public:
 	 * - 可以创建多个虫洞形成传送网络
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Wormhole")
-	FGuid CreateWormhole(const FWormholeTeleportParams& Params);
+	FGuid CreateWormhole(const FWormholeParams& Params);
 
 	/**
 	 * 移除虫洞
@@ -115,7 +115,7 @@ public:
 	 * @return 所有虫洞的参数数组
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Wormhole")
-	TArray<FWormholeTeleportParams> GetAllWormholes() const;
+	TArray<FWormholeParams> GetAllWormholes() const;
 
 	// ========== 效果应用 ==========
 	
@@ -152,7 +152,7 @@ public:
 	 * - 会检查最大分裂深度，防止无限分裂
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Split")
-	int32 ApplyMarbleSplit(const FMarbleState& ParentMarble, const FMarbleSplitParams& Params, 
+	int32 ApplyMarbleSplit(const FMarbleState& ParentMarble, const FSplitParams& Params, 
 	                       TArray<FMarbleState>& OutChildMarbles);
 
 	/**
@@ -190,7 +190,7 @@ public:
 	 * - 会检查最大连锁深度，防止无限连锁
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Chain")
-	int32 ApplyChainReaction(const FMarbleState& TriggerMarble, const FChainReactionParams& Params, 
+	int32 ApplyChainReaction(const FMarbleState& TriggerMarble, const FChainTriggerParams& Params, 
 	                         TArray<FMarbleState>& OutProjectiles);
 
 	// ========== 系统管理 ==========
@@ -229,10 +229,10 @@ private:
 	// ========== 内部状态 ==========
 	
 	/** 活跃的引力奇点映射表（ID -> Params） */
-	TMap<FGuid, FGravitySingularityParams> GravitySingularities;
+	TMap<FGuid, FGravityWellParams> GravitySingularities;
 
 	/** 活跃的虫洞映射表（ID -> Params） */
-	TMap<FGuid, FWormholeTeleportParams> Wormholes;
+	TMap<FGuid, FWormholeParams> Wormholes;
 
 	/** 当前游戏时间（单位：秒） */
 	float CurrentGameTime = 0.0f;

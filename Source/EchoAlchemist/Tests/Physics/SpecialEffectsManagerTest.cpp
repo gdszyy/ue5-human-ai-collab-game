@@ -20,7 +20,7 @@ bool FSpecialEffectsGravitySingularityTest::RunTest(const FString& Parameters)
 	TestNotNull(TEXT("EffectsManager should be created"), EffectsManager);
 
 	// 创建引力奇点
-	FGravitySingularityParams Params;
+	FGravityWellParams Params;
 	Params.Position = FVector(0, 0, 0);
 	Params.Strength = 500.0f;
 	Params.Radius = 300.0f;
@@ -32,7 +32,7 @@ bool FSpecialEffectsGravitySingularityTest::RunTest(const FString& Parameters)
 	TestTrue(TEXT("SingularityID should be valid"), SingularityID.IsValid());
 
 	// 获取所有引力奇点
-	TArray<FGravitySingularityParams> Singularities = EffectsManager->GetAllGravitySingularities();
+	TArray<FGravityWellParams> Singularities = EffectsManager->GetAllGravitySingularities();
 	TestEqual(TEXT("Should have 1 singularity"), Singularities.Num(), 1);
 
 	// 创建魔力露珠
@@ -69,7 +69,7 @@ bool FSpecialEffectsWormholeTest::RunTest(const FString& Parameters)
 	USpecialEffectsManager* EffectsManager = NewObject<USpecialEffectsManager>();
 
 	// 创建虫洞
-	FWormholeTeleportParams Params;
+	FWormholeParams Params;
 	Params.EntryPosition = FVector(0, 0, 0);
 	Params.ExitPosition = FVector(1000, 0, 0);
 	Params.EntryRadius = 50.0f;
@@ -119,7 +119,7 @@ bool FSpecialEffectsMarbleSplitTest::RunTest(const FString& Parameters)
 	ParentMarble.Generation = 0;
 
 	// 创建分裂参数
-	FMarbleSplitParams Params;
+	FSplitParams Params;
 	Params.SplitCount = 3;
 	Params.SpeedMultiplier = 0.8f;
 	Params.AngleSpread = 60.0f;
@@ -216,7 +216,7 @@ bool FSpecialEffectsChainReactionTest::RunTest(const FString& Parameters)
 	TriggerMarble.Generation = 0;
 
 	// 创建连锁触发参数
-	FChainReactionParams Params;
+	FChainTriggerParams Params;
 	Params.ProjectileCount = 4;
 	Params.ProjectileSpeed = 800.0f;
 	Params.AngleSpread = 90.0f;
@@ -266,7 +266,7 @@ bool FSpecialEffectsExpirationTest::RunTest(const FString& Parameters)
 	USpecialEffectsManager* EffectsManager = NewObject<USpecialEffectsManager>();
 
 	// 创建临时引力奇点（持续3秒）
-	FGravitySingularityParams SingularityParams;
+	FGravityWellParams SingularityParams;
 	SingularityParams.Position = FVector(0, 0, 0);
 	SingularityParams.Strength = 500.0f;
 	SingularityParams.Radius = 300.0f;
@@ -275,7 +275,7 @@ bool FSpecialEffectsExpirationTest::RunTest(const FString& Parameters)
 	FGuid SingularityID = EffectsManager->CreateGravitySingularity(SingularityParams);
 
 	// 创建临时虫洞（持续2秒）
-	FWormholeTeleportParams WormholeParams;
+	FWormholeParams WormholeParams;
 	WormholeParams.EntryPosition = FVector(0, 0, 0);
 	WormholeParams.ExitPosition = FVector(1000, 0, 0);
 	WormholeParams.EntryRadius = 50.0f;
@@ -326,7 +326,7 @@ bool FSpecialEffectsMaxSplitDepthTest::RunTest(const FString& Parameters)
 	ParentMarble.Generation = 2;  // 已达到最大深度
 
 	// 创建分裂参数（最大深度为2）
-	FMarbleSplitParams Params;
+	FSplitParams Params;
 	Params.SplitCount = 3;
 	Params.MaxSplitDepth = 2;
 

@@ -5,9 +5,9 @@
 
 // ========== 引力奇点 ==========
 
-FGuid USpecialEffectsManager::CreateGravitySingularity(const FGravitySingularityParams& Params)
+FGuid USpecialEffectsManager::CreateGravitySingularity(const FGravityWellParams& Params)
 {
-	FGravitySingularityParams NewParams = Params;
+	FGravityWellParams NewParams = Params;
 	NewParams.CreationTime = CurrentGameTime;
 	
 	FGuid SingularityID = NewParams.ID;
@@ -31,18 +31,18 @@ bool USpecialEffectsManager::RemoveGravitySingularity(const FGuid& SingularityID
 	return false;
 }
 
-TArray<FGravitySingularityParams> USpecialEffectsManager::GetAllGravitySingularities() const
+TArray<FGravityWellParams> USpecialEffectsManager::GetAllGravitySingularities() const
 {
-	TArray<FGravitySingularityParams> Result;
+	TArray<FGravityWellParams> Result;
 	GravitySingularities.GenerateValueArray(Result);
 	return Result;
 }
 
 // ========== 虫洞传送 ==========
 
-FGuid USpecialEffectsManager::CreateWormhole(const FWormholeTeleportParams& Params)
+FGuid USpecialEffectsManager::CreateWormhole(const FWormholeParams& Params)
 {
-	FWormholeTeleportParams NewParams = Params;
+	FWormholeParams NewParams = Params;
 	NewParams.CreationTime = CurrentGameTime;
 	
 	FGuid WormholeID = NewParams.ID;
@@ -66,9 +66,9 @@ bool USpecialEffectsManager::RemoveWormhole(const FGuid& WormholeID)
 	return false;
 }
 
-TArray<FWormholeTeleportParams> USpecialEffectsManager::GetAllWormholes() const
+TArray<FWormholeParams> USpecialEffectsManager::GetAllWormholes() const
 {
-	TArray<FWormholeTeleportParams> Result;
+	TArray<FWormholeParams> Result;
 	Wormholes.GenerateValueArray(Result);
 	return Result;
 }
@@ -91,7 +91,7 @@ void USpecialEffectsManager::ApplyEffects(TArray<FMarbleState>& Marbles, float D
 }
 
 int32 USpecialEffectsManager::ApplyMarbleSplit(const FMarbleState& ParentMarble, 
-                                                const FMarbleSplitParams& Params, 
+                                                const FSplitParams& Params, 
                                                 TArray<FMarbleState>& OutChildMarbles)
 {
 	OutChildMarbles.Empty();
@@ -146,7 +146,7 @@ void USpecialEffectsManager::ApplySpeedModifier(FMarbleState& Marble, const FEch
 }
 
 int32 USpecialEffectsManager::ApplyChainReaction(const FMarbleState& TriggerMarble, 
-                                                  const FChainReactionParams& Params, 
+                                                  const FChainTriggerParams& Params, 
                                                   TArray<FMarbleState>& OutProjectiles)
 {
 	OutProjectiles.Empty();
@@ -219,7 +219,7 @@ void USpecialEffectsManager::ApplyGravityFields(FMarbleState& Marble, float Delt
 {
 	for (const auto& Pair : GravitySingularities)
 	{
-		const FGravitySingularityParams& Singularity = Pair.Value;
+		const FGravityWellParams& Singularity = Pair.Value;
 		
 		// 计算距离
 		FVector Delta = Singularity.Position - Marble.Position;
@@ -244,7 +244,7 @@ void USpecialEffectsManager::ApplyWormholes(FMarbleState& Marble)
 {
 	for (const auto& Pair : Wormholes)
 	{
-		const FWormholeTeleportParams& Wormhole = Pair.Value;
+		const FWormholeParams& Wormhole = Pair.Value;
 		
 		// 计算距离
 		FVector Delta = Wormhole.EntryPosition - Marble.Position;
