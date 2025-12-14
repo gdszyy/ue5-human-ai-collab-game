@@ -36,6 +36,10 @@ struct F2DBone
     /** The name of the parent bone. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
     FName ParentName;
+    
+    /** The index of the parent bone (-1 for root). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+    int32 ParentIndex = -1;
 
     /** The transform of this bone relative to its parent. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")

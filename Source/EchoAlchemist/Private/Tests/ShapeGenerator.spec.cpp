@@ -5,7 +5,7 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FShapeGeneratorTest, "Project.UnitTests.PCG.ShapeGenerator", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FShapeGeneratorTest, "Project.UnitTests.PCG.ShapeGenerator", EAutomationTestFlags::EditorContext | EAutomationTestFlags::SmokeFilter)
 
 bool FShapeGeneratorTest::RunTest(const FString& Parameters)
 {

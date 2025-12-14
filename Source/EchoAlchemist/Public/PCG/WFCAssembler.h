@@ -39,6 +39,44 @@ struct FWFCModule
     /** The connectors on this module. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
     TArray<FWFCConnector> Connectors;
+    
+    /** Module ID (alternative naming). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    FName ModuleID;
+    
+    /** North connectors. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    TArray<FName> NorthConnectors;
+    
+    /** South connectors. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    TArray<FName> SouthConnectors;
+    
+    /** East connectors. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    TArray<FName> EastConnectors;
+    
+    /** West connectors. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    TArray<FName> WestConnectors;
+};
+
+/**
+ * @struct FWFCCell
+ * @brief Represents a single cell in the WFC grid.
+ */
+USTRUCT(BlueprintType)
+struct FWFCCell
+{
+    GENERATED_BODY()
+    
+    /** The module ID placed in this cell. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    FName ModuleID;
+    
+    /** The position in the grid. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    FIntPoint Position;
 };
 
 /**
@@ -53,6 +91,14 @@ struct FWFCAssembly
     /** The placed modules in a 2D grid. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
     TArray<FName> PlacedModules;
+    
+    /** The grid of cells. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    TArray<FWFCCell> Grid;
+    
+    /** Whether the assembly was successful. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")
+    bool bSuccess = false;
 
     /** The width of the assembly grid. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WFC")

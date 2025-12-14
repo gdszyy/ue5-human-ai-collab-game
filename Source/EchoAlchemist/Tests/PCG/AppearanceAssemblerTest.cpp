@@ -6,7 +6,7 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_CalculateMonsterScale, "EchoAlchemist.PCG.AppearanceAssembler.CalculateMonsterScale", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_CalculateMonsterScale, "EchoAlchemist.PCG.AppearanceAssembler.CalculateMonsterScale", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAppearanceAssemblerTest_CalculateMonsterScale::RunTest(const FString& Parameters)
 {
@@ -63,7 +63,7 @@ bool FAppearanceAssemblerTest_CalculateMonsterScale::RunTest(const FString& Para
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_GetAnchorPointLocation, "EchoAlchemist.PCG.AppearanceAssembler.GetAnchorPointLocation", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_GetAnchorPointLocation, "EchoAlchemist.PCG.AppearanceAssembler.GetAnchorPointLocation", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAppearanceAssemblerTest_GetAnchorPointLocation::RunTest(const FString& Parameters)
 {
@@ -109,7 +109,7 @@ bool FAppearanceAssemblerTest_GetAnchorPointLocation::RunTest(const FString& Par
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_GetPaletteForHabitat, "EchoAlchemist.PCG.AppearanceAssembler.GetPaletteForHabitat", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_GetPaletteForHabitat, "EchoAlchemist.PCG.AppearanceAssembler.GetPaletteForHabitat", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAppearanceAssemblerTest_GetPaletteForHabitat::RunTest(const FString& Parameters)
 {
@@ -200,7 +200,7 @@ bool FAppearanceAssemblerTest_GetPaletteForHabitat::RunTest(const FString& Param
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_CreatePaletteSwapMaterial, "EchoAlchemist.PCG.AppearanceAssembler.CreatePaletteSwapMaterial", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_CreatePaletteSwapMaterial, "EchoAlchemist.PCG.AppearanceAssembler.CreatePaletteSwapMaterial", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAppearanceAssemblerTest_CreatePaletteSwapMaterial::RunTest(const FString& Parameters)
 {
@@ -222,7 +222,7 @@ bool FAppearanceAssemblerTest_CreatePaletteSwapMaterial::RunTest(const FString& 
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_Integration, "EchoAlchemist.PCG.AppearanceAssembler.Integration", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAppearanceAssemblerTest_Integration, "EchoAlchemist.PCG.AppearanceAssembler.Integration", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAppearanceAssemblerTest_Integration::RunTest(const FString& Parameters)
 {

@@ -5,7 +5,7 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_IdleAnimation, "EchoAlchemist.PCG.ProceduralAnimator.IdleAnimation", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_IdleAnimation, "EchoAlchemist.PCG.ProceduralAnimator.IdleAnimation", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_IdleAnimation::RunTest(const FString& Parameters)
 {
@@ -54,7 +54,7 @@ bool FProceduralAnimatorTest_IdleAnimation::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_WalkAnimation, "EchoAlchemist.PCG.ProceduralAnimator.WalkAnimation", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_WalkAnimation, "EchoAlchemist.PCG.ProceduralAnimator.WalkAnimation", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_WalkAnimation::RunTest(const FString& Parameters)
 {
@@ -109,7 +109,7 @@ bool FProceduralAnimatorTest_WalkAnimation::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_AttackAnimation, "EchoAlchemist.PCG.ProceduralAnimator.AttackAnimation", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_AttackAnimation, "EchoAlchemist.PCG.ProceduralAnimator.AttackAnimation", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_AttackAnimation::RunTest(const FString& Parameters)
 {
@@ -129,7 +129,7 @@ bool FProceduralAnimatorTest_AttackAnimation::RunTest(const FString& Parameters)
     TestSkeleton.Bones.Add(AttackLimb);
 
     // Generate attack animation
-    TArray<FAnimationFrame> AttackAnimation = UProceduralAnimator::GenerateAttackAnimation(TestSkeleton, 1.0f);
+    TArray<FAnimationFrame> AttackAnimation = UProceduralAnimator::GenerateAttackAnimation(TestSkeleton, FVector(1, 0, 0), 1.0f);
     
     // Test 1: Animation should have frames
     TestTrue(TEXT("Attack animation should have frames"), AttackAnimation.Num() > 0);
@@ -158,7 +158,7 @@ bool FProceduralAnimatorTest_AttackAnimation::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_DeathAnimation, "EchoAlchemist.PCG.ProceduralAnimator.DeathAnimation", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_DeathAnimation, "EchoAlchemist.PCG.ProceduralAnimator.DeathAnimation", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_DeathAnimation::RunTest(const FString& Parameters)
 {
@@ -179,7 +179,7 @@ bool FProceduralAnimatorTest_DeathAnimation::RunTest(const FString& Parameters)
 
     // Generate death animation
     FVector FallDirection = FVector(1, 0, 0); // Fall to the right
-    TArray<FAnimationFrame> DeathAnimation = UProceduralAnimator::GenerateDeathAnimation(TestSkeleton, FallDirection, 1.0f);
+    TArray<FAnimationFrame> DeathAnimation = UProceduralAnimator::GenerateDeathAnimation(TestSkeleton, FallDirection);
     
     // Test 1: Animation should have frames
     TestTrue(TEXT("Death animation should have frames"), DeathAnimation.Num() > 0);
@@ -217,7 +217,7 @@ bool FProceduralAnimatorTest_DeathAnimation::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_GenerateAnimation, "EchoAlchemist.PCG.ProceduralAnimator.GenerateAnimation", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_GenerateAnimation, "EchoAlchemist.PCG.ProceduralAnimator.GenerateAnimation", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_GenerateAnimation::RunTest(const FString& Parameters)
 {
@@ -258,7 +258,7 @@ bool FProceduralAnimatorTest_GenerateAnimation::RunTest(const FString& Parameter
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_DifferentDurations, "EchoAlchemist.PCG.ProceduralAnimator.DifferentDurations", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_DifferentDurations, "EchoAlchemist.PCG.ProceduralAnimator.DifferentDurations", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_DifferentDurations::RunTest(const FString& Parameters)
 {
@@ -294,7 +294,7 @@ bool FProceduralAnimatorTest_DifferentDurations::RunTest(const FString& Paramete
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_EmptySkeleton, "EchoAlchemist.PCG.ProceduralAnimator.EmptySkeleton", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_EmptySkeleton, "EchoAlchemist.PCG.ProceduralAnimator.EmptySkeleton", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_EmptySkeleton::RunTest(const FString& Parameters)
 {
@@ -303,7 +303,7 @@ bool FProceduralAnimatorTest_EmptySkeleton::RunTest(const FString& Parameters)
 
     TArray<FAnimationFrame> IdleAnim = UProceduralAnimator::GenerateIdleAnimation(EmptySkeleton, 1.0f);
     TArray<FAnimationFrame> WalkAnim = UProceduralAnimator::GenerateWalkAnimation(EmptySkeleton, 1.0f);
-    TArray<FAnimationFrame> AttackAnim = UProceduralAnimator::GenerateAttackAnimation(EmptySkeleton, 1.0f);
+    TArray<FAnimationFrame> AttackAnim = UProceduralAnimator::GenerateAttackAnimation(EmptySkeleton, FVector(1, 0, 0), 1.0f);
 
     // Should handle empty skeleton gracefully (either return empty or minimal frames)
     TestTrue(TEXT("Empty skeleton should not crash idle animation"), true);
@@ -313,7 +313,7 @@ bool FProceduralAnimatorTest_EmptySkeleton::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_ComplexSkeleton, "EchoAlchemist.PCG.ProceduralAnimator.ComplexSkeleton", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest_ComplexSkeleton, "EchoAlchemist.PCG.ProceduralAnimator.ComplexSkeleton", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FProceduralAnimatorTest_ComplexSkeleton::RunTest(const FString& Parameters)
 {
@@ -370,8 +370,8 @@ bool FProceduralAnimatorTest_ComplexSkeleton::RunTest(const FString& Parameters)
     // Generate all animation types
     TArray<FAnimationFrame> IdleAnim = UProceduralAnimator::GenerateIdleAnimation(ComplexSkeleton, 1.0f);
     TArray<FAnimationFrame> WalkAnim = UProceduralAnimator::GenerateWalkAnimation(ComplexSkeleton, 1.0f);
-    TArray<FAnimationFrame> AttackAnim = UProceduralAnimator::GenerateAttackAnimation(ComplexSkeleton, 1.0f);
-    TArray<FAnimationFrame> DeathAnim = UProceduralAnimator::GenerateDeathAnimation(ComplexSkeleton, FVector(1, 0, 0), 1.0f);
+    TArray<FAnimationFrame> AttackAnim = UProceduralAnimator::GenerateAttackAnimation(ComplexSkeleton, FVector(1, 0, 0), 1.0f);
+    TArray<FAnimationFrame> DeathAnim = UProceduralAnimator::GenerateDeathAnimation(ComplexSkeleton, FVector(1, 0, 0));
 
     // All animations should work with complex skeleton
     TestTrue(TEXT("Complex skeleton idle animation should have frames"), IdleAnim.Num() > 0);

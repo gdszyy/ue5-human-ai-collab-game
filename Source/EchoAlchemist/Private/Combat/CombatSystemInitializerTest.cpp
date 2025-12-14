@@ -20,7 +20,7 @@ public:
 
     virtual EAutomationTestFlags GetTestFlags() const override
     {
-        return EAutomationTestFlags::ProductFilter | EAutomationTestFlags::EngineFilter;
+        return EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter;
     }
 
     virtual bool RunTest(const FString& Parameters) override;
@@ -29,7 +29,7 @@ public:
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FCombatSystemInitializerSimpleTest,
     "EchoAlchemist.Combat.CombatSystemInitializer.Simple",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::EngineFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter
 )
 
 bool FCombatSystemInitializerSimpleTest::RunTest(const FString& Parameters)
@@ -47,7 +47,7 @@ bool FCombatSystemInitializerSimpleTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FCombatSystemInitializerDifficultyTest,
     "EchoAlchemist.Combat.CombatSystemInitializer.Difficulty",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::EngineFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter
 )
 
 bool FCombatSystemInitializerDifficultyTest::RunTest(const FString& Parameters)
@@ -62,7 +62,7 @@ bool FCombatSystemInitializerDifficultyTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FCombatSystemInitializerSceneTypeTest,
     "EchoAlchemist.Combat.CombatSystemInitializer.SceneType",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::EngineFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter
 )
 
 bool FCombatSystemInitializerSceneTypeTest::RunTest(const FString& Parameters)
@@ -77,7 +77,7 @@ bool FCombatSystemInitializerSceneTypeTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FCombatSystemInitializerErrorHandlingTest,
     "EchoAlchemist.Combat.CombatSystemInitializer.ErrorHandling",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::EngineFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter
 )
 
 bool FCombatSystemInitializerErrorHandlingTest::RunTest(const FString& Parameters)
@@ -93,7 +93,7 @@ bool FCombatSystemInitializerErrorHandlingTest::RunTest(const FString& Parameter
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FCombatSystemInitializerWithConfigTest,
     "EchoAlchemist.Combat.CombatSystemInitializer.WithConfig",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::EngineFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter
 )
 
 bool FCombatSystemInitializerWithConfigTest::RunTest(const FString& Parameters)

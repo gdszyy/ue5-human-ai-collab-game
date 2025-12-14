@@ -49,7 +49,7 @@ FGuid UMarblePhysicsSystem::LaunchMarble(const FMarbleLaunchParams& Params)
 	NewMarble.EffectRadius = Params.EffectRadius;
 	NewMarble.Mass = Params.Mass;
 	NewMarble.PotencyMultiplier = Params.PotencyMultiplier;
-	NewMarble.MaxPotency = Params.PotencyMultiplier;
+	NewMarble.MaxPotencyMultiplier = Params.PotencyMultiplier;
 	NewMarble.Generation = Params.Generation;
 	NewMarble.CreationTime = CurrentGameTime;
 	NewMarble.LastUpdateTime = CurrentGameTime;

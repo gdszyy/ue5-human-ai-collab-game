@@ -5,7 +5,7 @@
 #include "PCG/AttributeGenerator.h"
 #include "PCG/MonsterAttributes.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorEcologyTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateEcologyAttributes", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorEcologyTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateEcologyAttributes", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAttributeGeneratorEcologyTest::RunTest(const FString& Parameters)
 {
@@ -37,7 +37,7 @@ bool FAttributeGeneratorEcologyTest::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorCombatTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateCombatAttributes", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorCombatTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateCombatAttributes", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAttributeGeneratorCombatTest::RunTest(const FString& Parameters)
 {
@@ -80,7 +80,7 @@ bool FAttributeGeneratorCombatTest::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorMonsterTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateMonsterAttributes", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorMonsterTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateMonsterAttributes", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAttributeGeneratorMonsterTest::RunTest(const FString& Parameters)
 {
@@ -115,7 +115,7 @@ bool FAttributeGeneratorMonsterTest::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorHabitatTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateHabitatType", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorHabitatTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateHabitatType", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAttributeGeneratorHabitatTest::RunTest(const FString& Parameters)
 {
@@ -141,7 +141,7 @@ bool FAttributeGeneratorHabitatTest::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorSizeClassTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateSizeClass", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorSizeClassTest, "EchoAlchemist.PCG.AttributeGenerator.GenerateSizeClass", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAttributeGeneratorSizeClassTest::RunTest(const FString& Parameters)
 {
@@ -165,7 +165,7 @@ bool FAttributeGeneratorSizeClassTest::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorStatsTest, "EchoAlchemist.PCG.AttributeGenerator.CalculateBaseStatsFromEcology", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAttributeGeneratorStatsTest, "EchoAlchemist.PCG.AttributeGenerator.CalculateBaseStatsFromEcology", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FAttributeGeneratorStatsTest::RunTest(const FString& Parameters)
 {

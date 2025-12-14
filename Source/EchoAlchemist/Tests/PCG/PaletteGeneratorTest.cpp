@@ -11,7 +11,7 @@
 // Habitat Color Spectrum Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorHabitatSpectrumTest, "EchoAlchemist.PCG.PaletteGenerator.HabitatSpectrum", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorHabitatSpectrumTest, "EchoAlchemist.PCG.PaletteGenerator.HabitatSpectrum", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorHabitatSpectrumTest::RunTest(const FString& Parameters)
 {
@@ -52,7 +52,7 @@ bool FPaletteGeneratorHabitatSpectrumTest::RunTest(const FString& Parameters)
 // Ecology-Based Palette Generation Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorEcologyTest, "EchoAlchemist.PCG.PaletteGenerator.EcologyPalette", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorEcologyTest, "EchoAlchemist.PCG.PaletteGenerator.EcologyPalette", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorEcologyTest::RunTest(const FString& Parameters)
 {
@@ -89,7 +89,7 @@ bool FPaletteGeneratorEcologyTest::RunTest(const FString& Parameters)
 // Size Class Influence Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorSizeClassTest, "EchoAlchemist.PCG.PaletteGenerator.SizeClassInfluence", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorSizeClassTest, "EchoAlchemist.PCG.PaletteGenerator.SizeClassInfluence", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorSizeClassTest::RunTest(const FString& Parameters)
 {
@@ -123,7 +123,7 @@ bool FPaletteGeneratorSizeClassTest::RunTest(const FString& Parameters)
 // Rarity Adjustment Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorRarityTest, "EchoAlchemist.PCG.PaletteGenerator.RarityAdjustment", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorRarityTest, "EchoAlchemist.PCG.PaletteGenerator.RarityAdjustment", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorRarityTest::RunTest(const FString& Parameters)
 {
@@ -161,7 +161,7 @@ bool FPaletteGeneratorRarityTest::RunTest(const FString& Parameters)
 // Combat Trait Accent Color Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorTraitAccentTest, "EchoAlchemist.PCG.PaletteGenerator.TraitAccentColor", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorTraitAccentTest, "EchoAlchemist.PCG.PaletteGenerator.TraitAccentColor", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorTraitAccentTest::RunTest(const FString& Parameters)
 {
@@ -192,7 +192,7 @@ bool FPaletteGeneratorTraitAccentTest::RunTest(const FString& Parameters)
 // Full Monster Attributes Palette Generation Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorMonsterAttributesTest, "EchoAlchemist.PCG.PaletteGenerator.MonsterAttributesPalette", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorMonsterAttributesTest, "EchoAlchemist.PCG.PaletteGenerator.MonsterAttributesPalette", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorMonsterAttributesTest::RunTest(const FString& Parameters)
 {
@@ -232,7 +232,7 @@ bool FPaletteGeneratorMonsterAttributesTest::RunTest(const FString& Parameters)
 // Combat Attribute Modification Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorCombatModificationTest, "EchoAlchemist.PCG.PaletteGenerator.CombatModification", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorCombatModificationTest, "EchoAlchemist.PCG.PaletteGenerator.CombatModification", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorCombatModificationTest::RunTest(const FString& Parameters)
 {
@@ -272,7 +272,7 @@ bool FPaletteGeneratorCombatModificationTest::RunTest(const FString& Parameters)
 // Legacy Function Tests
 // ========================================
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorLegacyTest, "EchoAlchemist.PCG.PaletteGenerator.LegacyFunctions", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPaletteGeneratorLegacyTest, "EchoAlchemist.PCG.PaletteGenerator.LegacyFunctions", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FPaletteGeneratorLegacyTest::RunTest(const FString& Parameters)
 {

@@ -4,7 +4,7 @@
 #include "Alchemy/RecipeSystem.h"
 #include "Alchemy/RecipeBlueprintLibrary.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemBasicTest, "EchoAlchemist.Alchemy.RecipeSystem.Basic", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemBasicTest, "EchoAlchemist.Alchemy.RecipeSystem.Basic", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeSystemBasicTest::RunTest(const FString& Parameters)
 {
@@ -32,7 +32,7 @@ bool FRecipeSystemBasicTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemAdditiveTest, "EchoAlchemist.Alchemy.RecipeSystem.Additive", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemAdditiveTest, "EchoAlchemist.Alchemy.RecipeSystem.Additive", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeSystemAdditiveTest::RunTest(const FString& Parameters)
 {
@@ -57,7 +57,7 @@ bool FRecipeSystemAdditiveTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemMultiAdditiveTest, "EchoAlchemist.Alchemy.RecipeSystem.MultiAdditive", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemMultiAdditiveTest, "EchoAlchemist.Alchemy.RecipeSystem.MultiAdditive", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeSystemMultiAdditiveTest::RunTest(const FString& Parameters)
 {
@@ -84,7 +84,7 @@ bool FRecipeSystemMultiAdditiveTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemDiscoveryTest, "EchoAlchemist.Alchemy.RecipeSystem.Discovery", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemDiscoveryTest, "EchoAlchemist.Alchemy.RecipeSystem.Discovery", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeSystemDiscoveryTest::RunTest(const FString& Parameters)
 {
@@ -113,7 +113,7 @@ bool FRecipeSystemDiscoveryTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemWorldStateTest, "EchoAlchemist.Alchemy.RecipeSystem.WorldState", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemWorldStateTest, "EchoAlchemist.Alchemy.RecipeSystem.WorldState", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeSystemWorldStateTest::RunTest(const FString& Parameters)
 {
@@ -141,7 +141,7 @@ bool FRecipeSystemWorldStateTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemLibraryTest, "EchoAlchemist.Alchemy.RecipeSystem.Library", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeSystemLibraryTest, "EchoAlchemist.Alchemy.RecipeSystem.Library", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeSystemLibraryTest::RunTest(const FString& Parameters)
 {
@@ -174,7 +174,7 @@ bool FRecipeSystemLibraryTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeBlueprintLibraryTest, "EchoAlchemist.Alchemy.RecipeBlueprintLibrary.Basic", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeBlueprintLibraryTest, "EchoAlchemist.Alchemy.RecipeBlueprintLibrary.Basic", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeBlueprintLibraryTest::RunTest(const FString& Parameters)
 {
@@ -211,7 +211,7 @@ bool FRecipeBlueprintLibraryTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeEffectExtractionTest, "EchoAlchemist.Alchemy.RecipeBlueprintLibrary.EffectExtraction", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecipeEffectExtractionTest, "EchoAlchemist.Alchemy.RecipeBlueprintLibrary.EffectExtraction", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FRecipeEffectExtractionTest::RunTest(const FString& Parameters)
 {

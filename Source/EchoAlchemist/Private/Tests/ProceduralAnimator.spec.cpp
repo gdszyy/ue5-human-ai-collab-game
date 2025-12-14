@@ -5,7 +5,7 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest, "Project.UnitTests.PCG.ProceduralAnimator", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FProceduralAnimatorTest, "Project.UnitTests.PCG.ProceduralAnimator", EAutomationTestFlags::EditorContext | EAutomationTestFlags::SmokeFilter)
 
 bool FProceduralAnimatorTest::RunTest(const FString& Parameters)
 {

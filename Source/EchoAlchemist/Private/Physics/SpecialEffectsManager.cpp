@@ -120,7 +120,7 @@ int32 USpecialEffectsManager::ApplyMarbleSplit(const FMarbleState& ParentMarble,
 		ChildMarble.EffectRadius = ParentMarble.EffectRadius;
 		ChildMarble.Mass = ParentMarble.Mass;
 		ChildMarble.PotencyMultiplier = ParentMarble.PotencyMultiplier * Params.PotencyMultiplier;
-		ChildMarble.MaxPotency = ParentMarble.MaxPotency * Params.PotencyMultiplier;
+		ChildMarble.MaxPotencyMultiplier = ParentMarble.MaxPotencyMultiplier * Params.PotencyMultiplier;
 		ChildMarble.Generation = ParentMarble.Generation + 1;
 		ChildMarble.PotionType = ParentMarble.PotionType;
 		ChildMarble.BaseDamage = ParentMarble.BaseDamage;
@@ -172,7 +172,7 @@ int32 USpecialEffectsManager::ApplyChainReaction(const FMarbleState& TriggerMarb
 		Projectile.EffectRadius = TriggerMarble.EffectRadius * 0.8f;  // 次级魔药稍小
 		Projectile.Mass = TriggerMarble.Mass * 0.8f;
 		Projectile.PotencyMultiplier = Params.PotencyMultiplier;
-		Projectile.MaxPotency = Params.PotencyMultiplier;
+		Projectile.MaxPotencyMultiplier = Params.PotencyMultiplier;
 		Projectile.Generation = TriggerMarble.Generation + 1;
 		Projectile.PotionType = TriggerMarble.PotionType;
 		Projectile.BaseDamage = TriggerMarble.BaseDamage * Params.DamageMultiplier;

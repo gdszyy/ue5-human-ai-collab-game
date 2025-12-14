@@ -283,7 +283,7 @@ bool UCombatSystemTest::TestDamageCalculator()
 		Marble.BaseDamage = 10.0f;
 		Marble.HitCount = 3;
 		Marble.PotencyMultiplier = 100.0f;
-		Marble.MaxPotency = 100.0f;
+		Marble.MaxPotencyMultiplier = 100.0f;
 		
 		FDamageInfo DamageInfo = UDamageCalculator::CalculateDamage(Marble, FGuid::NewGuid());
 		

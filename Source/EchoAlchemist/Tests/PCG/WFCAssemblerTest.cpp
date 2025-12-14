@@ -5,7 +5,7 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_BasicAssembly, "EchoAlchemist.PCG.WFCAssembler.BasicAssembly", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_BasicAssembly, "EchoAlchemist.PCG.WFCAssembler.BasicAssembly", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FWFCAssemblerTest_BasicAssembly::RunTest(const FString& Parameters)
 {
@@ -62,7 +62,7 @@ bool FWFCAssemblerTest_BasicAssembly::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_ConnectorCompatibility, "EchoAlchemist.PCG.WFCAssembler.ConnectorCompatibility", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_ConnectorCompatibility, "EchoAlchemist.PCG.WFCAssembler.ConnectorCompatibility", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FWFCAssemblerTest_ConnectorCompatibility::RunTest(const FString& Parameters)
 {
@@ -133,7 +133,7 @@ bool FWFCAssemblerTest_ConnectorCompatibility::RunTest(const FString& Parameters
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_Determinism, "EchoAlchemist.PCG.WFCAssembler.Determinism", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_Determinism, "EchoAlchemist.PCG.WFCAssembler.Determinism", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FWFCAssemblerTest_Determinism::RunTest(const FString& Parameters)
 {
@@ -176,7 +176,7 @@ bool FWFCAssemblerTest_Determinism::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_GridCoordinates, "EchoAlchemist.PCG.WFCAssembler.GridCoordinates", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_GridCoordinates, "EchoAlchemist.PCG.WFCAssembler.GridCoordinates", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FWFCAssemblerTest_GridCoordinates::RunTest(const FString& Parameters)
 {
@@ -217,7 +217,7 @@ bool FWFCAssemblerTest_GridCoordinates::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_DifferentSeeds, "EchoAlchemist.PCG.WFCAssembler.DifferentSeeds", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_DifferentSeeds, "EchoAlchemist.PCG.WFCAssembler.DifferentSeeds", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FWFCAssemblerTest_DifferentSeeds::RunTest(const FString& Parameters)
 {
@@ -267,7 +267,7 @@ bool FWFCAssemblerTest_DifferentSeeds::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_EdgeCases, "EchoAlchemist.PCG.WFCAssembler.EdgeCases", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWFCAssemblerTest_EdgeCases, "EchoAlchemist.PCG.WFCAssembler.EdgeCases", EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 
 bool FWFCAssemblerTest_EdgeCases::RunTest(const FString& Parameters)
 {
