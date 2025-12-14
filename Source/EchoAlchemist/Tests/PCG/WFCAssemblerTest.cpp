@@ -122,7 +122,7 @@ bool FWFCAssemblerTest_ConnectorCompatibility::RunTest(const FString& Parameters
         if (Assembly.bSuccess)
         {
             // If successful, all cells should use the same module
-            FString FirstModuleID = Assembly.Grid[0].ModuleId;
+            FName FirstModuleID = Assembly.Grid[0].ModuleId;
             for (const FWFCCell& Cell : Assembly.Grid)
             {
                 TestEqual(TEXT("All cells should use same module when incompatible"), Cell.ModuleId, FirstModuleID);

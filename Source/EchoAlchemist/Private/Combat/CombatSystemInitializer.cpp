@@ -78,7 +78,7 @@ UCombatManager* UCombatSystemInitializer::InitializeCombatSystemWithConfig(
     }
     // Initialize with combat scene config
     FPhysicsSceneConfig PhysicsConfig;
-    PhysicsConfig.SceneType = EPhysicsSceneType::Combat;
+    PhysicsConfig.SceneType = EPhysicsSceneType::Default;
     PhysicsConfig.BoundsMin = FVector(-1000.0f, -1000.0f, -1000.0f);
     PhysicsConfig.BoundsMax = FVector(1000.0f, 1000.0f, 1000.0f);
     PhysicsConfig.GravityDirection = FVector(0, 0, -1);

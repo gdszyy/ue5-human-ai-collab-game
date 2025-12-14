@@ -85,7 +85,7 @@ bool FAppearanceAssemblerTest_GetAnchorPointLocation::RunTest(const FString& Par
     {
         FVector BackLocation = UAppearanceAssembler::GetAnchorPointLocation(TEXT("Back"), DummySkeletonData);
         TestTrue(TEXT("Back anchor should have positive Z"), BackLocation.Z > 0.0f);
-        TestEqual(TEXT("Back anchor should have zero X"), BackLocation.X, 0.0f);
+        TestEqual(TEXT("Back anchor should have zero X"), BackLocation.X, 0.0);
     }
 
     // Test 4: Unknown anchor should return zero vector
