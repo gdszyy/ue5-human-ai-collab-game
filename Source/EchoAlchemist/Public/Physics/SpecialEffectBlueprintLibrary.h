@@ -108,7 +108,7 @@ public:
 	 * @return 速度修改参数
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|SpecialEffect|Params", meta = (Keywords = "create make speed modifier boost slow"))
-	static FSpeedModifierParams MakeSpeedModifierParams(
+	static FEchoSpeedModifierParams MakeSpeedModifierParams(
 		float SpeedMultiplier = 1.5f,
 		bool bApplyImmediately = true,
 		float Duration = 0.0f
@@ -175,7 +175,7 @@ public:
 	 * @return 速度修改参数
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|SpecialEffect|Presets", meta = (Keywords = "preset speed boost fast"))
-	static FSpeedModifierParams MakeSpeedBoost();
+	static FEchoSpeedModifierParams MakeSpeedBoost();
 
 	/**
 	 * 创建减速参数（0.5倍速）
@@ -183,7 +183,7 @@ public:
 	 * @return 速度修改参数
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|SpecialEffect|Presets", meta = (Keywords = "preset speed slow"))
-	static FSpeedModifierParams MakeSpeedSlow();
+	static FEchoSpeedModifierParams MakeSpeedSlow();
 
 	// ========== 辅助函数 ==========
 	
@@ -194,7 +194,7 @@ public:
 	 * @return 显示名称
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|SpecialEffect|Utility", meta = (Keywords = "get effect type name"))
-	static FString GetEffectTypeName(ESpecialEffectType EffectType);
+	static FString GetEffectTypeName(EEchoSpecialEffectType EffectType);
 
 	/**
 	 * 检查效果类型是否为持续性效果
@@ -203,5 +203,5 @@ public:
 	 * @return true=持续性效果，false=瞬间效果
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|SpecialEffect|Utility", meta = (Keywords = "check effect type continuous"))
-	static bool IsContinuousEffect(ESpecialEffectType EffectType);
+	static bool IsContinuousEffect(EEchoSpecialEffectType EffectType);
 };

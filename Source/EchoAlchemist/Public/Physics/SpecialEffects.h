@@ -9,7 +9,7 @@
  * 特殊效果类型
  */
 UENUM(BlueprintType)
-enum class ESpecialEffectType : uint8
+enum class EEchoSpecialEffectType : uint8
 {
 	/** 无效果 */
 	None UMETA(DisplayName = "None"),
@@ -196,13 +196,13 @@ struct FMarbleSplitParams
  * 
  * 蓝图使用示例：
  * ```
- * FSpeedModifierParams Params;
+ * FEchoSpeedModifierParams Params;
  * Params.Multiplier = 1.5f;  // 加速50%
  * Params.Duration = 3.0f;    // 持续3秒
  * ```
  */
 USTRUCT(BlueprintType)
-struct FSpeedModifierParams
+struct FEchoSpeedModifierParams
 {
 	GENERATED_BODY()
 

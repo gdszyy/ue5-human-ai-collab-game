@@ -13,7 +13,7 @@
  * 
  * 当特殊效果触发时调用此委托。
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSpecialEffectTriggeredDelegate, ESpecialEffectType, EffectType, FGuid, TargetMarbleID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSpecialEffectTriggeredDelegate, EEchoSpecialEffectType, EffectType, FGuid, TargetMarbleID);
 
 /**
  * 特殊效果系统
@@ -150,7 +150,7 @@ public:
 	 * - 如果Duration>0，效果会持续一段时间
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffect")
-	bool ApplySpeedModifier(const FMarbleState& MarbleState, const FSpeedModifierParams& Params, FMarbleState& OutModifiedState);
+	bool ApplySpeedModifier(const FMarbleState& MarbleState, const FEchoSpeedModifierParams& Params, FMarbleState& OutModifiedState);
 
 	/**
 	 * 应用连锁触发效果
@@ -212,7 +212,7 @@ public:
 	 * @return 效果数量
 	 */
 	UFUNCTION(BlueprintPure, Category = "Physics|SpecialEffect")
-	int32 GetEffectCountByType(ESpecialEffectType EffectType) const;
+	int32 GetEffectCountByType(EEchoSpecialEffectType EffectType) const;
 
 	/**
 	 * 检查系统是否已初始化

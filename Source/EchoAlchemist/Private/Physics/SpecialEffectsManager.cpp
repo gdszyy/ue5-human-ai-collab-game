@@ -136,7 +136,7 @@ int32 USpecialEffectsManager::ApplyMarbleSplit(const FMarbleState& ParentMarble,
 	return OutChildMarbles.Num();
 }
 
-void USpecialEffectsManager::ApplySpeedModifier(FMarbleState& Marble, const FSpeedModifierParams& Params)
+void USpecialEffectsManager::ApplySpeedModifier(FMarbleState& Marble, const FEchoSpeedModifierParams& Params)
 {
 	// 应用速度倍率
 	Marble.Velocity *= Params.Multiplier;
