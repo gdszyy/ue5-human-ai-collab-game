@@ -105,7 +105,7 @@ void UCombatPhysicsIntegrator::Tick(float DeltaTime)
 	DetectCollisions();
 }
 
-void UCombatPhysicsIntegrator::HandleCollision(const FCollisionEvent& CollisionEvent)
+void UCombatPhysicsIntegrator::HandleCollision(const FEchoCollisionEvent& CollisionEvent)
 {
 	// 检查是否是魔药与敌人的碰撞
 	FGuid* MarbleID1 = CollisionBodyToMarbleMap.Find(CollisionEvent.BodyA);
@@ -195,10 +195,10 @@ void UCombatPhysicsIntegrator::DetectCollisions()
 	}
 	
 	// 检测碰撞
-	TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+	TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 	
 	// 处理每个碰撞事件
-	for (const FCollisionEvent& Collision : Collisions)
+	for (const FEchoCollisionEvent& Collision : Collisions)
 	{
 		HandleCollision(Collision);
 	}

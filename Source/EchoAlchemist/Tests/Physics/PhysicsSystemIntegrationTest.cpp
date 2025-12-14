@@ -139,10 +139,10 @@ bool FPhysicsSystemIntegrationCombatTest::RunTest(const FString& Parameters)
 		CollisionManager->UpdateSpatialGrid();
 		
 		// 4. 执行碰撞检测
-		TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+		TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 		
 		// 5. 处理碰撞结果
-		for (const FCollisionEvent& Event : Collisions)
+		for (const FEchoCollisionEvent& Event : Collisions)
 		{
 			// 检查是否是魔力露珠与敌人的碰撞
 			bool bMarbleA = MarbleIDs.Contains(Event.BodyA);
@@ -303,11 +303,11 @@ bool FPhysicsSystemIntegrationWorkbenchTest::RunTest(const FString& Parameters)
 		CollisionManager->UpdateSpatialGrid();
 		
 		// 4. 执行碰撞检测并统计结果
-		TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+		TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 		TotalCollisions += Collisions.Num();
 		
 		// 统计注入点被击中次数
-		for (const FCollisionEvent& Event : Collisions)
+		for (const FEchoCollisionEvent& Event : Collisions)
 		{
 			if (InjectionPointIDs.Contains(Event.BodyA))
 			{
@@ -536,7 +536,7 @@ bool FPhysicsSystemIntegrationStressTest::RunTest(const FString& Parameters)
 		// 碰撞检测
 		StartTime = FPlatformTime::Seconds();
 		CollisionManager->UpdateSpatialGrid();
-		TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+		TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 		TotalCollisionTime += FPlatformTime::Seconds() - StartTime;
 		
 		TotalCollisions += Collisions.Num();

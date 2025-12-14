@@ -109,7 +109,7 @@ struct FCollisionBody
  * - 使用HitPoint来显示碰撞特效
  */
 USTRUCT(BlueprintType)
-struct FCollisionEvent
+struct FEchoCollisionEvent
 {
 	GENERATED_BODY()
 

@@ -132,9 +132,9 @@ void UCollisionManager::GetSpatialGridStatistics(int32& OutTotalCells, int32& Ou
 	}
 }
 
-TArray<FCollisionEvent> UCollisionManager::DetectCollisions()
+TArray<FEchoCollisionEvent> UCollisionManager::DetectCollisions()
 {
-	TArray<FCollisionEvent> Collisions;
+	TArray<FEchoCollisionEvent> Collisions;
 	
 	if (!bIsInitialized || !SpatialGrid.IsValid())
 	{
@@ -173,7 +173,7 @@ TArray<FCollisionEvent> UCollisionManager::DetectCollisions()
 			CheckedPairs.Add(Pair1);
 			
 			// 执行碰撞检测
-			FCollisionEvent Event;
+			FEchoCollisionEvent Event;
 			if (CheckCollision(BodyA, BodyB, Event))
 			{
 				Event.Timestamp = CurrentGameTime;
@@ -188,7 +188,7 @@ TArray<FCollisionEvent> UCollisionManager::DetectCollisions()
 	return Collisions;
 }
 
-int32 UCollisionManager::DetectCollisionsForBody(const FGuid& BodyID, TArray<FCollisionEvent>& OutCollisions)
+int32 UCollisionManager::DetectCollisionsForBody(const FGuid& BodyID, TArray<FEchoCollisionEvent>& OutCollisions)
 {
 	OutCollisions.Empty();
 	
@@ -219,7 +219,7 @@ int32 UCollisionManager::DetectCollisionsForBody(const FGuid& BodyID, TArray<FCo
 		}
 		
 		// 执行碰撞检测
-		FCollisionEvent Event;
+		FEchoCollisionEvent Event;
 		if (CheckCollision(*BodyA, BodyB, Event))
 		{
 			Event.Timestamp = CurrentGameTime;
@@ -233,7 +233,7 @@ int32 UCollisionManager::DetectCollisionsForBody(const FGuid& BodyID, TArray<FCo
 	return OutCollisions.Num();
 }
 
-bool UCollisionManager::CheckCollision(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FCollisionEvent& OutEvent)
+bool UCollisionManager::CheckCollision(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FEchoCollisionEvent& OutEvent)
 {
 	// 根据形状类型分发到具体的碰撞检测函数
 	if (BodyA.ShapeType == EEchoCollisionShapeType::Circle && BodyB.ShapeType == EEchoCollisionShapeType::Circle)
@@ -253,7 +253,7 @@ bool UCollisionManager::CheckCollision(const FCollisionBody& BodyA, const FColli
 	return false;
 }
 
-bool UCollisionManager::CheckCircleCircle(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FCollisionEvent& OutEvent)
+bool UCollisionManager::CheckCircleCircle(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FEchoCollisionEvent& OutEvent)
 {
 	// 计算距离
 	FVector Delta = BodyB.Position - BodyA.Position;
@@ -290,7 +290,7 @@ bool UCollisionManager::CheckCircleCircle(const FCollisionBody& BodyA, const FCo
 	return false;
 }
 
-bool UCollisionManager::CheckCircleRectangle(const FCollisionBody& Circle, const FCollisionBody& Rectangle, FCollisionEvent& OutEvent)
+bool UCollisionManager::CheckCircleRectangle(const FCollisionBody& Circle, const FCollisionBody& Rectangle, FEchoCollisionEvent& OutEvent)
 {
 	// 简化版本：将矩形视为轴对齐边界盒（AABB），不考虑旋转
 	// TODO: 实现支持旋转的矩形碰撞检测

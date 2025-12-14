@@ -170,7 +170,7 @@ public:
 	 * - 如果bSmoothTransition=true，需要在多帧中调用
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|SpecialEffects|Speed")
-	void ApplySpeedModifier(UPARAM(ref) FMarbleState& Marble, const FSpeedModifierParams& Params);
+	void ApplySpeedModifier(UPARAM(ref) FMarbleState& Marble, const FEchoSpeedModifierParams& Params);
 
 	/**
 	 * 应用连锁触发效果

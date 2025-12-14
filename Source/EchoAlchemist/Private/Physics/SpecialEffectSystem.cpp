@@ -30,7 +30,7 @@ FGuid USpecialEffectSystem::CreateGravityWell(const FGravityWellParams& Params)
 	
 	FSpecialEffectData Effect;
 	Effect.EffectID = FGuid::NewGuid();
-	Effect.EffectType = ESpecialEffectType::GravityWell;
+	Effect.EffectType = EEchoSpecialEffectType::GravityWell;
 	Effect.CreationTime = CurrentGameTime;
 	Effect.bIsActive = true;
 	Effect.GravityWellParams = Params;
@@ -56,7 +56,7 @@ FGuid USpecialEffectSystem::CreateWormhole(const FWormholeParams& Params)
 	
 	FSpecialEffectData Effect;
 	Effect.EffectID = FGuid::NewGuid();
-	Effect.EffectType = ESpecialEffectType::Wormhole;
+	Effect.EffectType = EEchoSpecialEffectType::Wormhole;
 	Effect.CreationTime = CurrentGameTime;
 	Effect.bIsActive = true;
 	Effect.WormholeParams = Params;
@@ -116,12 +116,12 @@ int32 USpecialEffectSystem::ApplySplitEffect(const FMarbleState& MarbleState, co
 		Params.SplitCount);
 	
 	// 触发事件
-	OnEffectTriggered.Broadcast(ESpecialEffectType::Split, MarbleState.ID);
+	OnEffectTriggered.Broadcast(EEchoSpecialEffectType::Split, MarbleState.ID);
 	
 	return OutNewMarbles.Num();
 }
 
-bool USpecialEffectSystem::ApplySpeedModifier(const FMarbleState& MarbleState, const FSpeedModifierParams& Params, FMarbleState& OutModifiedState)
+bool USpecialEffectSystem::ApplySpeedModifier(const FMarbleState& MarbleState, const FEchoSpeedModifierParams& Params, FMarbleState& OutModifiedState)
 {
 	if (!bIsInitialized)
 	{
@@ -140,7 +140,7 @@ bool USpecialEffectSystem::ApplySpeedModifier(const FMarbleState& MarbleState, c
 			Params.SpeedMultiplier);
 		
 		// 触发事件
-		ESpecialEffectType EffectType = Params.SpeedMultiplier > 1.0f ? ESpecialEffectType::SpeedBoost : ESpecialEffectType::SpeedSlow;
+		EEchoSpecialEffectType EffectType = Params.SpeedMultiplier > 1.0f ? EEchoSpecialEffectType::SpeedBoost : EEchoSpecialEffectType::SpeedSlow;
 		OnEffectTriggered.Broadcast(EffectType, MarbleState.ID);
 		
 		return true;
@@ -194,7 +194,7 @@ int32 USpecialEffectSystem::ApplyChainTrigger(FVector TriggerPosition, FVector T
 		Params.SecondaryCount);
 	
 	// 触发事件
-	OnEffectTriggered.Broadcast(ESpecialEffectType::ChainTrigger, FGuid());
+	OnEffectTriggered.Broadcast(EEchoSpecialEffectType::ChainTrigger, FGuid());
 	
 	return OutSecondaryMarbles.Num();
 }
@@ -232,11 +232,11 @@ void USpecialEffectSystem::Tick(float DeltaTime, const TArray<FMarbleState>& Mar
 		
 		switch (Effect.EffectType)
 		{
-		case ESpecialEffectType::GravityWell:
+		case EEchoSpecialEffectType::GravityWell:
 			UpdateGravityWell(Effect, Marbles, OutModifiedMarbles);
 			break;
 			
-		case ESpecialEffectType::Wormhole:
+		case EEchoSpecialEffectType::Wormhole:
 			UpdateWormhole(Effect, Marbles, OutModifiedMarbles);
 			break;
 			
@@ -264,7 +264,7 @@ TArray<FSpecialEffectData> USpecialEffectSystem::GetAllActiveEffects() const
 	return ActiveEffects;
 }
 
-int32 USpecialEffectSystem::GetEffectCountByType(ESpecialEffectType EffectType) const
+int32 USpecialEffectSystem::GetEffectCountByType(EEchoSpecialEffectType EffectType) const
 {
 	int32 Count = 0;
 	
@@ -332,7 +332,7 @@ void USpecialEffectSystem::UpdateWormhole(const FSpecialEffectData& Effect, cons
 				*Params.ExitPosition.ToString());
 			
 			// 触发事件
-			OnEffectTriggered.Broadcast(ESpecialEffectType::Wormhole, Marble.ID);
+			OnEffectTriggered.Broadcast(EEchoSpecialEffectType::Wormhole, Marble.ID);
 		}
 	}
 }
@@ -349,11 +349,11 @@ void USpecialEffectSystem::RemoveExpiredEffects()
 		float Duration = 0.0f;
 		switch (Effect.EffectType)
 		{
-		case ESpecialEffectType::GravityWell:
+		case EEchoSpecialEffectType::GravityWell:
 			Duration = Effect.GravityWellParams.Duration;
 			break;
 			
-		case ESpecialEffectType::Wormhole:
+		case EEchoSpecialEffectType::Wormhole:
 			Duration = Effect.WormholeParams.Duration;
 			break;
 			

@@ -50,12 +50,12 @@ FSplitParams USpecialEffectBlueprintLibrary::MakeSplitParams(
 	return Params;
 }
 
-FSpeedModifierParams USpecialEffectBlueprintLibrary::MakeSpeedModifierParams(
+FEchoSpeedModifierParams USpecialEffectBlueprintLibrary::MakeSpeedModifierParams(
 	float SpeedMultiplier,
 	bool bApplyImmediately,
 	float Duration)
 {
-	FSpeedModifierParams Params;
+	FEchoSpeedModifierParams Params;
 	Params.SpeedMultiplier = SpeedMultiplier;
 	Params.bApplyImmediately = bApplyImmediately;
 	Params.Duration = Duration;
@@ -122,59 +122,59 @@ FSplitParams USpecialEffectBlueprintLibrary::MakeTripleSplit()
 	return Params;
 }
 
-FSpeedModifierParams USpecialEffectBlueprintLibrary::MakeSpeedBoost()
+FEchoSpeedModifierParams USpecialEffectBlueprintLibrary::MakeSpeedBoost()
 {
-	FSpeedModifierParams Params;
+	FEchoSpeedModifierParams Params;
 	Params.SpeedMultiplier = 2.0f;
 	Params.bApplyImmediately = true;
 	Params.Duration = 0.0f;
 	return Params;
 }
 
-FSpeedModifierParams USpecialEffectBlueprintLibrary::MakeSpeedSlow()
+FEchoSpeedModifierParams USpecialEffectBlueprintLibrary::MakeSpeedSlow()
 {
-	FSpeedModifierParams Params;
+	FEchoSpeedModifierParams Params;
 	Params.SpeedMultiplier = 0.5f;
 	Params.bApplyImmediately = true;
 	Params.Duration = 0.0f;
 	return Params;
 }
 
-FString USpecialEffectBlueprintLibrary::GetEffectTypeName(ESpecialEffectType EffectType)
+FString USpecialEffectBlueprintLibrary::GetEffectTypeName(EEchoSpecialEffectType EffectType)
 {
 	switch (EffectType)
 	{
-	case ESpecialEffectType::None:
+	case EEchoSpecialEffectType::None:
 		return TEXT("None");
-	case ESpecialEffectType::GravityWell:
+	case EEchoSpecialEffectType::GravityWell:
 		return TEXT("Gravity Well");
-	case ESpecialEffectType::Wormhole:
+	case EEchoSpecialEffectType::Wormhole:
 		return TEXT("Wormhole");
-	case ESpecialEffectType::Split:
+	case EEchoSpecialEffectType::Split:
 		return TEXT("Split");
-	case ESpecialEffectType::SpeedBoost:
+	case EEchoSpecialEffectType::SpeedBoost:
 		return TEXT("Speed Boost");
-	case ESpecialEffectType::SpeedSlow:
+	case EEchoSpecialEffectType::SpeedSlow:
 		return TEXT("Speed Slow");
-	case ESpecialEffectType::ChainTrigger:
+	case EEchoSpecialEffectType::ChainTrigger:
 		return TEXT("Chain Trigger");
 	default:
 		return TEXT("Unknown");
 	}
 }
 
-bool USpecialEffectBlueprintLibrary::IsContinuousEffect(ESpecialEffectType EffectType)
+bool USpecialEffectBlueprintLibrary::IsContinuousEffect(EEchoSpecialEffectType EffectType)
 {
 	switch (EffectType)
 	{
-	case ESpecialEffectType::GravityWell:
-	case ESpecialEffectType::Wormhole:
+	case EEchoSpecialEffectType::GravityWell:
+	case EEchoSpecialEffectType::Wormhole:
 		return true;
 		
-	case ESpecialEffectType::Split:
-	case ESpecialEffectType::SpeedBoost:
-	case ESpecialEffectType::SpeedSlow:
-	case ESpecialEffectType::ChainTrigger:
+	case EEchoSpecialEffectType::Split:
+	case EEchoSpecialEffectType::SpeedBoost:
+	case EEchoSpecialEffectType::SpeedSlow:
+	case EEchoSpecialEffectType::ChainTrigger:
 		return false;
 		
 	default:

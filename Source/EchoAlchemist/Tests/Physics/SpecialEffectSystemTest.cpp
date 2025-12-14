@@ -27,7 +27,7 @@ bool FSpecialEffectSystemInitTest::RunTest(const FString& Parameters)
 
 	// 测试初始化后状态
 	TestTrue(TEXT("EffectSystem should be initialized"), EffectSystem->IsInitialized());
-	TestEqual(TEXT("Effect count should be 0"), EffectSystem->GetEffectCountByType(ESpecialEffectType::GravityWell), 0);
+	TestEqual(TEXT("Effect count should be 0"), EffectSystem->GetEffectCountByType(EEchoSpecialEffectType::GravityWell), 0);
 
 	return true;
 }
@@ -57,12 +57,12 @@ bool FSpecialEffectGravityWellTest::RunTest(const FString& Parameters)
 
 	// 验证
 	TestTrue(TEXT("EffectID should be valid"), EffectID.IsValid());
-	TestEqual(TEXT("GravityWell count should be 1"), EffectSystem->GetEffectCountByType(ESpecialEffectType::GravityWell), 1);
+	TestEqual(TEXT("GravityWell count should be 1"), EffectSystem->GetEffectCountByType(EEchoSpecialEffectType::GravityWell), 1);
 
 	// 获取所有效果
 	TArray<FSpecialEffectData> Effects = EffectSystem->GetAllActiveEffects();
 	TestEqual(TEXT("Active effects count should be 1"), Effects.Num(), 1);
-	TestTrue(TEXT("Effect type should be GravityWell"), Effects[0].EffectType == ESpecialEffectType::GravityWell);
+	TestTrue(TEXT("Effect type should be GravityWell"), Effects[0].EffectType == EEchoSpecialEffectType::GravityWell);
 
 	return true;
 }
@@ -92,7 +92,7 @@ bool FSpecialEffectWormholeTest::RunTest(const FString& Parameters)
 
 	// 验证
 	TestTrue(TEXT("EffectID should be valid"), EffectID.IsValid());
-	TestEqual(TEXT("Wormhole count should be 1"), EffectSystem->GetEffectCountByType(ESpecialEffectType::Wormhole), 1);
+	TestEqual(TEXT("Wormhole count should be 1"), EffectSystem->GetEffectCountByType(EEchoSpecialEffectType::Wormhole), 1);
 
 	return true;
 }
@@ -163,7 +163,7 @@ bool FSpecialEffectSpeedModifierTest::RunTest(const FString& Parameters)
 	float OriginalSpeed = Marble.Velocity.Size();
 
 	// 创建加速参数
-	FSpeedModifierParams Params = USpecialEffectBlueprintLibrary::MakeSpeedBoost();
+	FEchoSpeedModifierParams Params = USpecialEffectBlueprintLibrary::MakeSpeedBoost();
 
 	// 应用速度修改
 	FMarbleState ModifiedMarble;
@@ -248,7 +248,7 @@ bool FSpecialEffectExpirationTest::RunTest(const FString& Parameters)
 	);
 
 	FGuid EffectID = EffectSystem->CreateGravityWell(Params);
-	TestEqual(TEXT("GravityWell count should be 1"), EffectSystem->GetEffectCountByType(ESpecialEffectType::GravityWell), 1);
+	TestEqual(TEXT("GravityWell count should be 1"), EffectSystem->GetEffectCountByType(EEchoSpecialEffectType::GravityWell), 1);
 
 	// 模拟时间流逝（2秒）
 	TArray<FMarbleState> EmptyMarbles;
@@ -258,7 +258,7 @@ bool FSpecialEffectExpirationTest::RunTest(const FString& Parameters)
 
 	// 验证效果已过期
 	TestEqual(TEXT("GravityWell should be removed after expiration"), 
-		EffectSystem->GetEffectCountByType(ESpecialEffectType::GravityWell), 0);
+		EffectSystem->GetEffectCountByType(EEchoSpecialEffectType::GravityWell), 0);
 
 	return true;
 }
@@ -283,20 +283,20 @@ bool FSpecialEffectBlueprintLibraryTest::RunTest(const FString& Parameters)
 	FSplitParams TripleSplit = USpecialEffectBlueprintLibrary::MakeTripleSplit();
 	TestEqual(TEXT("TripleSplit count should be 3"), TripleSplit.SplitCount, 3);
 
-	FSpeedModifierParams SpeedBoost = USpecialEffectBlueprintLibrary::MakeSpeedBoost();
+	FEchoSpeedModifierParams SpeedBoost = USpecialEffectBlueprintLibrary::MakeSpeedBoost();
 	TestTrue(TEXT("SpeedBoost multiplier should be greater than 1"), SpeedBoost.SpeedMultiplier > 1.0f);
 
-	FSpeedModifierParams SpeedSlow = USpecialEffectBlueprintLibrary::MakeSpeedSlow();
+	FEchoSpeedModifierParams SpeedSlow = USpecialEffectBlueprintLibrary::MakeSpeedSlow();
 	TestTrue(TEXT("SpeedSlow multiplier should be less than 1"), SpeedSlow.SpeedMultiplier < 1.0f);
 
 	// 测试辅助函数
-	FString GravityWellName = USpecialEffectBlueprintLibrary::GetEffectTypeName(ESpecialEffectType::GravityWell);
+	FString GravityWellName = USpecialEffectBlueprintLibrary::GetEffectTypeName(EEchoSpecialEffectType::GravityWell);
 	TestEqual(TEXT("GravityWell name should be correct"), GravityWellName, FString(TEXT("Gravity Well")));
 
-	bool bIsContinuous = USpecialEffectBlueprintLibrary::IsContinuousEffect(ESpecialEffectType::GravityWell);
+	bool bIsContinuous = USpecialEffectBlueprintLibrary::IsContinuousEffect(EEchoSpecialEffectType::GravityWell);
 	TestTrue(TEXT("GravityWell should be continuous effect"), bIsContinuous);
 
-	bool bIsInstant = USpecialEffectBlueprintLibrary::IsContinuousEffect(ESpecialEffectType::Split);
+	bool bIsInstant = USpecialEffectBlueprintLibrary::IsContinuousEffect(EEchoSpecialEffectType::Split);
 	TestFalse(TEXT("Split should not be continuous effect"), bIsInstant);
 
 	return true;

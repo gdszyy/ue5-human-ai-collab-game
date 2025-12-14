@@ -111,13 +111,13 @@ bool FCollisionManagerCircleCircleTest::RunTest(const FString& Parameters)
 	CollisionManager->UpdateSpatialGrid();
 
 	// 执行碰撞检测
-	TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+	TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 
 	// 验证碰撞结果
 	TestEqual(TEXT("Should detect 1 collision"), Collisions.Num(), 1);
 	if (Collisions.Num() > 0)
 	{
-		const FCollisionEvent& Event = Collisions[0];
+		const FEchoCollisionEvent& Event = Collisions[0];
 		TestTrue(TEXT("BodyA should be valid"), Event.BodyA.IsValid());
 		TestTrue(TEXT("BodyB should be valid"), Event.BodyB.IsValid());
 		TestTrue(TEXT("Penetration depth should be positive"), Event.PenetrationDepth > 0);
@@ -162,7 +162,7 @@ bool FCollisionManagerCircleCircleNoCollisionTest::RunTest(const FString& Parame
 	CollisionManager->UpdateSpatialGrid();
 
 	// 执行碰撞检测
-	TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+	TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 
 	// 验证碰撞结果
 	TestEqual(TEXT("Should detect 0 collisions"), Collisions.Num(), 0);
@@ -208,7 +208,7 @@ bool FCollisionManagerCircleRectangleTest::RunTest(const FString& Parameters)
 	CollisionManager->UpdateSpatialGrid();
 
 	// 执行碰撞检测
-	TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+	TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 
 	// 验证碰撞结果（圆心距离矩形边缘5cm，圆半径10cm，应该碰撞）
 	TestEqual(TEXT("Should detect 1 collision"), Collisions.Num(), 1);
@@ -318,7 +318,7 @@ bool FCollisionManagerPerformanceTest::RunTest(const FString& Parameters)
 
 	// 执行碰撞检测
 	StartTime = FPlatformTime::Seconds();
-	TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+	TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 	double CollisionDetectionTime = FPlatformTime::Seconds() - StartTime;
 
 	// 输出性能数据
@@ -371,7 +371,7 @@ bool FCollisionManagerEventTest::RunTest(const FString& Parameters)
 	CollisionManager->UpdateSpatialGrid();
 
 	// 执行碰撞检测
-	TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+	TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
 
 	// 验证碰撞检测结果
 	TestEqual(TEXT("Should detect one collision"), Collisions.Num(), 1);

@@ -11,7 +11,7 @@
  * 定义游戏中所有可用的特殊物理效果类型。
  */
 UENUM(BlueprintType)
-enum class ESpecialEffectType : uint8
+enum class EEchoSpecialEffectType : uint8
 {
 	/** 无效果 */
 	None UMETA(DisplayName = "None"),
@@ -134,7 +134,7 @@ struct FSplitParams
  * 修改弹珠的速度（加速或减速）。
  */
 USTRUCT(BlueprintType)
-struct FSpeedModifierParams
+struct FEchoSpeedModifierParams
 {
 	GENERATED_BODY()
 
@@ -198,7 +198,7 @@ struct FSpecialEffectData
 
 	/** 效果类型 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
-	ESpecialEffectType EffectType = ESpecialEffectType::None;
+	EEchoSpecialEffectType EffectType = EEchoSpecialEffectType::None;
 
 	/** 效果创建时间（单位：秒） */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
@@ -222,7 +222,7 @@ struct FSpecialEffectData
 
 	/** 速度修改参数 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect|Speed")
-	FSpeedModifierParams SpeedModifierParams;
+	FEchoSpeedModifierParams SpeedModifierParams;
 
 	/** 连锁触发参数 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect|Chain")

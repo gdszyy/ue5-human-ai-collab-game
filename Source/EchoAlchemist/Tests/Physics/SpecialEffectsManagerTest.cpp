@@ -172,7 +172,7 @@ bool FSpecialEffectsSpeedModifierTest::RunTest(const FString& Parameters)
 	float InitialSpeed = Marble.Velocity.Size();
 
 	// 创建加速参数
-	FSpeedModifierParams BoostParams;
+	FEchoSpeedModifierParams BoostParams;
 	BoostParams.Multiplier = 1.5f;  // 加速50%
 
 	// 应用加速效果
@@ -184,7 +184,7 @@ bool FSpecialEffectsSpeedModifierTest::RunTest(const FString& Parameters)
 	TestTrue(TEXT("Speed should be boosted by 50%"), FMath::IsNearlyEqual(BoostedSpeed, ExpectedSpeed, 1.0f));
 
 	// 创建减速参数
-	FSpeedModifierParams SlowParams;
+	FEchoSpeedModifierParams SlowParams;
 	SlowParams.Multiplier = 0.5f;  // 减速50%
 
 	// 应用减速效果

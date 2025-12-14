@@ -123,7 +123,7 @@ public:
 	 * @param CollisionEvent 碰撞事件
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Combat|Integration")
-	void HandleCollision(const FCollisionEvent& CollisionEvent);
+	void HandleCollision(const FEchoCollisionEvent& CollisionEvent);
 
 	// ========== 查询 ==========
 	

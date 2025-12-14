@@ -19,13 +19,13 @@
  * CollisionManager->OnCollision.AddDynamic(this, &AMyActor::HandleCollision);
  * 
  * // 事件处理函数
- * void AMyActor::HandleCollision(const FCollisionEvent& Event)
+ * void AMyActor::HandleCollision(const FEchoCollisionEvent& Event)
  * {
  *     // 处理碰撞
  * }
  * ```
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCollisionDelegate, const FCollisionEvent&, CollisionEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCollisionDelegate, const FEchoCollisionEvent&, CollisionEvent);
 
 /**
  * 碰撞管理器
@@ -57,8 +57,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCollisionDelegate, const FCollisi
  * 
  * 4. 执行碰撞检测
  *    ```
- *    TArray<FCollisionEvent> Collisions = CollisionManager->DetectCollisions();
- *    for (const FCollisionEvent& Event : Collisions)
+ *    TArray<FEchoCollisionEvent> Collisions = CollisionManager->DetectCollisions();
+ *    for (const FEchoCollisionEvent& Event : Collisions)
  *    {
  *        // 处理碰撞
  *    }
@@ -202,7 +202,7 @@ public:
 	 * - 使用空间网格优化，性能为O(n * k)
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|Collision")
-	TArray<FCollisionEvent> DetectCollisions();
+	TArray<FEchoCollisionEvent> DetectCollisions();
 
 	/**
 	 * 检测指定碰撞体与其他碰撞体的碰撞
@@ -216,7 +216,7 @@ public:
 	 * - 减少不必要的碰撞检测
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Physics|Collision")
-	int32 DetectCollisionsForBody(const FGuid& BodyID, TArray<FCollisionEvent>& OutCollisions);
+	int32 DetectCollisionsForBody(const FGuid& BodyID, TArray<FEchoCollisionEvent>& OutCollisions);
 
 	// ========== 碰撞事件 ==========
 	
@@ -265,7 +265,7 @@ private:
 	 * @param OutEvent 输出参数，存储碰撞事件
 	 * @return true=发生碰撞，false=未碰撞
 	 */
-	bool CheckCollision(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FCollisionEvent& OutEvent);
+	bool CheckCollision(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FEchoCollisionEvent& OutEvent);
 
 	/**
 	 * 圆-圆碰撞检测
@@ -275,7 +275,7 @@ private:
 	 * @param OutEvent 输出参数，存储碰撞事件
 	 * @return true=发生碰撞，false=未碰撞
 	 */
-	bool CheckCircleCircle(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FCollisionEvent& OutEvent);
+	bool CheckCircleCircle(const FCollisionBody& BodyA, const FCollisionBody& BodyB, FEchoCollisionEvent& OutEvent);
 
 	/**
 	 * 圆-矩形碰撞检测
@@ -285,5 +285,5 @@ private:
 	 * @param OutEvent 输出参数，存储碰撞事件
 	 * @return true=发生碰撞，false=未碰撞
 	 */
-	bool CheckCircleRectangle(const FCollisionBody& Circle, const FCollisionBody& Rectangle, FCollisionEvent& OutEvent);
+	bool CheckCircleRectangle(const FCollisionBody& Circle, const FCollisionBody& Rectangle, FEchoCollisionEvent& OutEvent);
 };
