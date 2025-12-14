@@ -2,32 +2,14 @@
 	"FileVersion": 3,
 	"EngineAssociation": "5.7",
 	"Category": "",
-	"Description": "《回声炼金师》- 基于人机协同开发的 UE5 游戏项目",
-	"Modules": [
-		{
-			"Name": "EchoAlchemist",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine"
-			]
-		}
-	],
+	"Description": "",
 	"Plugins": [
 		{
-			"Name": "PythonScriptPlugin",
-			"Enabled": true
-		},
-		{
-			"Name": "EditorScriptingUtilities",
-			"Enabled": true
-		},
-		{
-			"Name": "Paper2D",
-			"Enabled": true
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
 		}
-	],
-	"TargetPlatforms": [
-		"WindowsNoEditor"
 	]
 }
