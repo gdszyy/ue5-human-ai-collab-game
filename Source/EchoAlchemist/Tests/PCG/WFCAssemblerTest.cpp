@@ -201,15 +201,15 @@ bool FWFCAssemblerTest_GridCoordinates::RunTest(const FString& Parameters)
     // Check that all coordinates are within bounds
     for (const FWFCCell& Cell : Assembly.Grid)
     {
-        TestTrue(TEXT("X coordinate should be within bounds"), Cell.X >= 0 && Cell.X < Width);
-        TestTrue(TEXT("Y coordinate should be within bounds"), Cell.Y >= 0 && Cell.Y < Height);
+        TestTrue(TEXT("X coordinate should be within bounds"), Cell.Position.X >= 0 && Cell.Position.X < Width, true);
+        TestTrue(TEXT("Y coordinate should be within bounds"), Cell.Position.Y >= 0 && Cell.Position.Y < Height, true);
     }
     
     // Check that all positions are unique
     TSet<FString> UniquePositions;
     for (const FWFCCell& Cell : Assembly.Grid)
     {
-        FString Position = FString::Printf(TEXT("%d,%d"), Cell.X, Cell.Y);
+        FString Position = FString::Printf(TEXT("%d,%d"), Cell.Position.X, Cell.Position.Y);
         TestFalse(TEXT("Each position should be unique"), UniquePositions.Contains(Position));
         UniquePositions.Add(Position);
     }
@@ -228,7 +228,7 @@ bool FWFCAssemblerTest_DifferentSeeds::RunTest(const FString& Parameters)
     for (int32 i = 0; i < 5; ++i)
     {
         FWFCModule Module;
-        Module.ModuleId = FString::Printf(TEXT("Module%d"), i);
+        Module.ModuleId = FName(*FString::Printf(TEXT("Module%d"), i));
         Module.NorthConnectors.Add(TEXT("A"));
         Module.SouthConnectors.Add(TEXT("A"));
         Module.EastConnectors.Add(TEXT("A"));

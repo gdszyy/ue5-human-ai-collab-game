@@ -286,9 +286,9 @@ bool FCollisionManagerPerformanceTest::RunTest(const FString& Parameters)
 		FCollisionBody Body;
 		Body.ID = FGuid::NewGuid();
 		Body.Position = FVector(
-			FMath::FRandRange(-500, 500),
-			FMath::FRandRange(-500, 500),
-			FMath::FRandRange(0, 500)
+			FMath::FRandRange(-500.0f, 500.0f),
+			FMath::FRandRange(-500.0f, 500.0f),
+			FMath::FRandRange(0.0f, 500.0f)
 		);
 		Body.ShapeType = EEchoCollisionShapeType::Circle;
 		Body.EffectRadius = 10.0f;
@@ -301,9 +301,9 @@ bool FCollisionManagerPerformanceTest::RunTest(const FString& Parameters)
 		FCollisionBody Body;
 		Body.ID = FGuid::NewGuid();
 		Body.Position = FVector(
-			FMath::FRandRange(-500, 500),
-			FMath::FRandRange(-500, 500),
-			FMath::FRandRange(0, 500)
+			FMath::FRandRange(-500.0f, 500.0f),
+			FMath::FRandRange(-500.0f, 500.0f),
+			FMath::FRandRange(0.0f, 500.0f)
 		);
 		Body.ShapeType = EEchoCollisionShapeType::Rectangle;
 		Body.Size = FVector2D(50.0f, 30.0f);
